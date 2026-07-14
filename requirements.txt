@@ -8,7 +8,7 @@ litellm==1.92.0
 # Undeclared-dependency churn like this is chapter 1's lesson in miniature.
 # (orjson: same story, one import deeper.)
 fastapi==0.139.0
-orjson==3.11.4
+orjson==3.11.9
 openai==2.45.0
 anthropic==0.116.0
 python-dotenv==1.2.2
