@@ -40,14 +40,18 @@ what the tool is doing for me."*
 ## The chapters
 
 One representative tool per category — the survey breadth lives in CAREERS.md;
-depth lives here. Order mirrors the original series path.
+depth lives here. Order mirrors the original series path. The slate was
+verified against mid-2026 usage (surveys, adoption data), not habit — e.g.
+promptfoo lost its slot to DeepEval after OpenAI acquired it in March 2026.
+That verification date is part of the repo's honesty: check the landscape
+again before trusting the slate in 2027.
 
 | # | Chapter | Replaces the hand-rolled… | From dive | Status |
 |---|---------|---------------------------|-----------|--------|
 | 1 | **LiteLLM** | provider layer — one client, many providers, fallbacks, cost tracking | [OpenAI API](https://github.com/alexvervloet/openai-api-deep-dive) / [Claude API](https://github.com/alexvervloet/claude-api-deep-dive) | planned |
 | 2 | **Instructor** | JSON-parse-and-retry loop for structured extraction | [Prompt Engineering](https://github.com/alexvervloet/prompt-engineering-deep-dive) | planned |
 | 3 | **LlamaIndex** | chunk → embed → retrieve → cite pipeline | [RAG](https://github.com/alexvervloet/rag-deep-dive) | planned |
-| 4 | **promptfoo** | eval harness and regression gate | [Evals](https://github.com/alexvervloet/evals-deep-dive) | planned |
+| 4 | **DeepEval** | eval harness and regression gate | [Evals](https://github.com/alexvervloet/evals-deep-dive) | planned |
 | 5 | **LangGraph** | agent loop, tool routing, state | [Agents](https://github.com/alexvervloet/agents-deep-dive) | planned |
 | 6 | **Llama Guard + Guardrails AI** | input/output detectors and checks | [Prompt Injection & Guardrails](https://github.com/alexvervloet/prompt-injection-deep-dive) | planned |
 | 7 | **Langfuse** | tracing, cost accounting, prompt versioning | [Production](https://github.com/alexvervloet/ai-in-production-deep-dive) + [Observability](https://github.com/alexvervloet/observability-deep-dive) | planned |
