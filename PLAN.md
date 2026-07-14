@@ -4,6 +4,15 @@ Working doc. Continue from the first unchecked milestone. Keep commits small:
 one file per commit where the file is likely to stay stable; err on the side
 of over-committing.
 
+> Tool slate verified against the mid-2026 landscape via web search on
+> 2026-07-14 (adoption surveys, download stats, acquisition news). Notable:
+> promptfoo acquired by OpenAI (2026-03, folding into their Frontier
+> platform) → ch04 switched to DeepEval; Langfuse acquired by ClickHouse
+> (2026-01) but still open-source/self-hostable; LangGraph confirmed the
+> production default (~39M monthly PyPI downloads); "LlamaIndex for the RAG
+> layer + LangGraph for orchestration" is the published 2026 consensus.
+> Re-verify before starting any chapter that's been sitting a while.
+
 ## Ground rules (decided up front)
 
 - **Method per chapter** (mirrors README): recap primitive → introduce tool →
@@ -45,14 +54,20 @@ of over-committing.
       instructor + Pydantic. Measure: parse-failure rate over N runs on the
       same inputs, hand-rolled vs instructor vs provider-native structured
       output (three-way — the provider mode is the real competitor now).
+      Mention BAML in the verdict as the rising schema-first alternative
+      (2026 reviews call instructor "starting to feel outdated" next to it);
+      don't port to it unless the three-way leaves the story incomplete.
 - [ ] **M3 — ch03 LlamaIndex**: baseline = rag-deep-dive's final pipeline.
       Port chunk→embed→retrieve→cite on the *same corpus*; score both with
       the dive's hit-rate/MRR eval. Verdict: where do its defaults
       (chunking, top-k, prompt templates) differ from yours, and does it show?
-- [ ] **M4 — ch04 promptfoo**: baseline = evals-deep-dive harness. Re-express
-      one eval suite (cases + judge + threshold gate) in promptfoo YAML; run
-      both on the same model pair, compare verdicts and ergonomics; wire the
-      promptfoo gate into CI as the artifact.
+- [ ] **M4 — ch04 DeepEval**: baseline = evals-deep-dive harness. Re-express
+      one eval suite (cases + judge metrics + threshold gate) as DeepEval
+      pytest tests; run both on the same model pair, compare verdicts and
+      ergonomics; wire the DeepEval gate into CI as the artifact. Name-check
+      Ragas (RAG-specific metrics standard) and the common "open-source
+      framework for CI + platform (Braintrust/LangSmith) for production"
+      two-tool pattern.
 - [ ] **M5 — ch05 LangGraph**: baseline = agents-deep-dive loop. Port the
       same tools + task set; measure steps-to-completion and success rate on
       the dive's task eval. Reuse the COMPARISON.md instincts from
@@ -73,9 +88,10 @@ of over-committing.
 
 ## Open questions (decide when reached)
 
-- ch04: promptfoo vs Braintrust vs Ragas — promptfoo chosen for being local,
-  free, and config-driven; revisit if it can't express the judge-bias
-  controls from the evals dive.
+- ~~ch04: promptfoo vs Braintrust vs Ragas~~ — resolved 2026-07-14: promptfoo
+  acquired by OpenAI and folding into their platform; DeepEval is the 2026
+  open-source CI-eval standard. Revisit only if DeepEval can't express the
+  judge-bias controls from the evals dive.
 - ch07: self-hosted Langfuse vs cloud free tier — self-hosted preferred;
   fall back to cloud if docker friction eats the lesson.
 - Whether ch06 also needs NeMo Guardrails — only if Guardrails AI turns out
