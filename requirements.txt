@@ -1,0 +1,8 @@
+# Pinned on 2026-07-14. This repo pins hard on purpose — frameworks break
+# between minor versions, and a chapter's verdict is tied to the version it
+# measured. If a pin is far behind the tool's current release, re-verify
+# before upgrading (see README: "A warning this repo wears on purpose").
+litellm==1.92.0
+openai==2.45.0
+anthropic==0.116.0
+python-dotenv==1.2.2
