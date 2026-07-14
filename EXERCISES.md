@@ -21,3 +21,23 @@ is the thing the chapter claimed — verify it, don't take the verdict's word.
    and an empty string comes out. Locating it teaches you what "the
    abstraction tax" costs when you're the one paying it: you're now debugging
    someone else's provider layer instead of your own.
+
+## Chapter 2 — Instructor
+
+1. **Make the failures come back.** The verdict says the reliability gap has
+   mostly closed *on this schema*. Stress it: add a deeply nested field
+   (say, `interview_stages: list[Stage]` with its own enum and date), or
+   drop the local model to something smaller than 8B, and re-run
+   compare.py. At what point does the hand-rolled first-call rate fall — and
+   does native mode's guarantee still hold when the schema gets gnarly, or
+   does strict mode start rejecting parts of your model?
+2. **Charge the retry to someone.** Two of twenty hand-rolled runs took a
+   second call. Extend compare.py to price the matrix with ch01's cost
+   tools: what does each approach cost per 1,000 postings, and does
+   Instructor's tool-call transport (schema tokens in every request) cost
+   more than the hand-rolled prompt block it replaced?
+3. **Find the constraint the decoder can't check.** Add a Pydantic
+   `model_validator` that enforces `salary_min <= salary_max`. Constrained
+   decoding cannot express cross-field rules — so what happens in each of
+   the three approaches when the model emits a reversed range? (Build a
+   posting that tempts it: "up to 95k, from 80k".)
