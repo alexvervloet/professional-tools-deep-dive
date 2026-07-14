@@ -43,7 +43,10 @@ of over-committing.
 ## Milestones
 
 - [x] **M0 — scaffold**: git init, LICENSE, .gitignore, README, this plan.
-- [ ] **M1 — ch01 LiteLLM**: baseline = the hand-rolled provider layer
+- [x] **M1 — ch01 LiteLLM** (done 2026-07-14; see ch01-litellm/VERDICT.md —
+      costs agreed to the digit, errors surface a layer removed, `ollama/`
+      vs `ollama_chat/` silent tool-call failure): baseline = the hand-rolled
+      provider layer
       (openai/claude dives). Port: same three calls (chat, streaming, tool
       call) through LiteLLM against OpenAI + Anthropic + Ollama; exercise
       fallbacks and its cost tracking vs the hand-rolled token math.
