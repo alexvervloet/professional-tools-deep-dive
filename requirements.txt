@@ -3,6 +3,12 @@
 # measured. If a pin is far behind the tool's current release, re-verify
 # before upgrading (see README: "A warning this repo wears on purpose").
 litellm==1.92.0
+# fastapi is not our dependency — litellm 1.92.0 imports it (via an MCP proxy
+# handler) as soon as you pass tools= to completion(), even in plain SDK use.
+# Undeclared-dependency churn like this is chapter 1's lesson in miniature.
+# (orjson: same story, one import deeper.)
+fastapi==0.139.0
+orjson==3.11.4
 openai==2.45.0
 anthropic==0.116.0
 python-dotenv==1.2.2
