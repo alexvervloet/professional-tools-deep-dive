@@ -52,7 +52,11 @@ of over-committing.
       fallbacks and its cost tracking vs the hand-rolled token math.
       Verdict question: what does a router buy over a thin wrapper, and what
       does it hide when a provider errors?
-- [ ] **M2 — ch02 Instructor**: baseline = prompt-engineering dive's
+- [x] **M2 — ch02 Instructor** (done 2026-07-14; see ch02-instructor/VERDICT.md
+      — 60/60 extractions succeeded across all three approaches and both
+      models, all 34 semantic traps passed; the differences were retry
+      ownership, portability, and a 2× constrained-decoding latency cost on
+      Ollama): baseline = prompt-engineering dive's
       extract-JSON-and-retry loop. Port the same extraction schema via
       instructor + Pydantic. Measure: parse-failure rate over N runs on the
       same inputs, hand-rolled vs instructor vs provider-native structured

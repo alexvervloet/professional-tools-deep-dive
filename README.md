@@ -49,7 +49,7 @@ again before trusting the slate in 2027.
 | # | Chapter | Replaces the hand-rolled… | From dive | Status |
 |---|---------|---------------------------|-----------|--------|
 | 1 | **[LiteLLM](ch01-litellm/)** | provider layer — one client, many providers, fallbacks, cost tracking | [OpenAI API](https://github.com/alexvervloet/openai-api-deep-dive) / [Claude API](https://github.com/alexvervloet/claude-api-deep-dive) | **done** — [verdict](ch01-litellm/VERDICT.md) |
-| 2 | **Instructor** | JSON-parse-and-retry loop for structured extraction | [Prompt Engineering](https://github.com/alexvervloet/prompt-engineering-deep-dive) | planned |
+| 2 | **[Instructor](ch02-instructor/)** | JSON-parse-and-retry loop for structured extraction | [Prompt Engineering](https://github.com/alexvervloet/prompt-engineering-deep-dive) | **done** — [verdict](ch02-instructor/VERDICT.md) |
 | 3 | **LlamaIndex** | chunk → embed → retrieve → cite pipeline | [RAG](https://github.com/alexvervloet/rag-deep-dive) | planned |
 | 4 | **DeepEval** | eval harness and regression gate | [Evals](https://github.com/alexvervloet/evals-deep-dive) | planned |
 | 5 | **LangGraph** | agent loop, tool routing, state | [Agents](https://github.com/alexvervloet/agents-deep-dive) | planned |
