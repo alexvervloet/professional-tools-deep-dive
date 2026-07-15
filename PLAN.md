@@ -85,7 +85,12 @@ of over-committing.
       Ragas (RAG-specific metrics standard) and the common "open-source
       framework for CI + platform (Braintrust/LangSmith) for production"
       two-tool pattern.
-- [ ] **M5 — ch05 LangGraph**: baseline = agents-deep-dive loop. Port the
+- [x] **M5 — ch05 LangGraph** (done 2026-07-14; see ch05-langgraph/VERDICT.md
+      — dead tie on the five-task eval: 10/10, 2.0 llm calls, 1.0 tool
+      calls, ~1.5s/task for BOTH; real differences are the approval
+      architecture (callback vs durable interrupt/checkpoint/resume) and
+      create_react_agent deprecating mid-chapter): baseline =
+      agents-deep-dive loop. Port the
       same tools + task set; measure steps-to-completion and success rate on
       the dive's task eval. Reuse the COMPARISON.md instincts from
       askrepo-langchain (separate project) but keep this chapter minimal —

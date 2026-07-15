@@ -52,7 +52,7 @@ again before trusting the slate in 2027.
 | 2 | **[Instructor](ch02-instructor/)** | JSON-parse-and-retry loop for structured extraction | [Prompt Engineering](https://github.com/alexvervloet/prompt-engineering-deep-dive) | **done** — [verdict](ch02-instructor/VERDICT.md) |
 | 3 | **[LlamaIndex](ch03-llamaindex/)** | chunk → embed → retrieve → cite pipeline | [RAG](https://github.com/alexvervloet/rag-deep-dive) | **done** — [verdict](ch03-llamaindex/VERDICT.md) |
 | 4 | **[DeepEval](ch04-deepeval/)** | eval harness and regression gate | [Evals](https://github.com/alexvervloet/evals-deep-dive) | **done** — [verdict](ch04-deepeval/VERDICT.md) |
-| 5 | **LangGraph** | agent loop, tool routing, state | [Agents](https://github.com/alexvervloet/agents-deep-dive) | planned |
+| 5 | **[LangGraph](ch05-langgraph/)** | agent loop, tool routing, state | [Agents](https://github.com/alexvervloet/agents-deep-dive) | **done** — [verdict](ch05-langgraph/VERDICT.md) |
 | 6 | **Llama Guard + Guardrails AI** | input/output detectors and checks | [Prompt Injection & Guardrails](https://github.com/alexvervloet/prompt-injection-deep-dive) | planned |
 | 7 | **Langfuse** | tracing, cost accounting, prompt versioning | [Production](https://github.com/alexvervloet/ai-in-production-deep-dive) + [Observability](https://github.com/alexvervloet/observability-deep-dive) | planned |
 
