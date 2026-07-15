@@ -44,6 +44,7 @@ class EvalResult:
     mrr: float
     answer_rate: float
     misses: list[str]  # human-readable failures for the printout
+    answers: list[str]  # every generated answer, for property checks (citations etc.)
 
 
 def run_eval(
@@ -54,6 +55,7 @@ def run_eval(
     rr_total = 0.0
     answers_ok = 0
     misses: list[str] = []
+    answers: list[str] = []
     for question, expected_source, expected_fact in EVALSET:
         sources = retrieve_sources(question)
         if expected_source in sources:
@@ -62,9 +64,10 @@ def run_eval(
         else:
             misses.append(f"retrieval: {question!r} -> {sources}")
         text = answer(question)
+        answers.append(text)
         if expected_fact.lower() in text.lower():
             answers_ok += 1
         else:
             misses.append(f"answer: {question!r} lacks {expected_fact!r}: {text[:80]!r}")
     n = len(EVALSET)
-    return EvalResult(hits / n, rr_total / n, answers_ok / n, misses)
+    return EvalResult(hits / n, rr_total / n, answers_ok / n, misses, answers)
