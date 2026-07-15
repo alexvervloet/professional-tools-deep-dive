@@ -73,7 +73,12 @@ of over-committing.
       Port chunk→embed→retrieve→cite on the *same corpus*; score both with
       the dive's hit-rate/MRR eval. Verdict: where do its defaults
       (chunking, top-k, prompt templates) differ from yours, and does it show?
-- [ ] **M4 — ch04 DeepEval**: baseline = evals-deep-dive harness. Re-express
+- [x] **M4 — ch04 DeepEval** (done 2026-07-14; see ch04-deepeval/VERDICT.md —
+      FaithfulnessMetric = absence-of-contradiction, so a pure invention
+      scored 1.00 every run; the pytest gate flipped verdicts across reruns
+      on fixed inputs; ~7× time, ~12× cost vs the one-call judge; the
+      click/huggingface-hub pin pair in requirements.txt is this chapter's
+      resolver story): baseline = evals-deep-dive harness. Re-express
       one eval suite (cases + judge metrics + threshold gate) as DeepEval
       pytest tests; run both on the same model pair, compare verdicts and
       ergonomics; wire the DeepEval gate into CI as the artifact. Name-check
