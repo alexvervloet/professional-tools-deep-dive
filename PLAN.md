@@ -64,7 +64,12 @@ of over-committing.
       Mention BAML in the verdict as the rising schema-first alternative
       (2026 reviews call instructor "starting to feel outdated" next to it);
       don't port to it unless the three-way leaves the story incomplete.
-- [ ] **M3 — ch03 LlamaIndex**: baseline = rag-deep-dive's final pipeline.
+- [x] **M3 — ch03 LlamaIndex** (done 2026-07-14; see ch03-llamaindex/VERDICT.md
+      — accuracy tied 100% across hand-rolled / LI-defaults / LI-matched on
+      12 questions (corpus-bound, not framework-bound); the port silently
+      dropped the citation contract 12/12 → 0/12; shipped defaults were
+      ada-002 + gpt-3.5-turbo + 1024-token chunks + k=2): baseline =
+      rag-deep-dive's final pipeline.
       Port chunk→embed→retrieve→cite on the *same corpus*; score both with
       the dive's hit-rate/MRR eval. Verdict: where do its defaults
       (chunking, top-k, prompt templates) differ from yours, and does it show?
