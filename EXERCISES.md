@@ -41,3 +41,21 @@ is the thing the chapter claimed — verify it, don't take the verdict's word.
    decoding cannot express cross-field rules — so what happens in each of
    the three approaches when the model emits a reversed range? (Build a
    posting that tempts it: "up to 95k, from 80k".)
+
+## Chapter 3 — LlamaIndex
+
+1. **Build the corpus that separates them.** All three pipelines tied at
+   100% here. Make them differentiate: add near-duplicate docs (three plan
+   pages differing only in one number — the rag dive's example 11 trick),
+   then re-run compare.py. Which falls first: the 4-whole-doc defaults
+   engine, or the fine-chunked ones?
+2. **Price the defaults.** Wire ch01's cost tools into compare.py and put a
+   dollar figure on one full eval pass per pipeline. ada-002 is 5× the
+   embedding price and gpt-3.5-turbo ~2.5× the LLM price — but the defaults
+   engine also embeds fewer, bigger chunks and retrieves k=2. Which effect
+   wins on this corpus? Measure before you guess.
+3. **Win the citations back.** The port silently dropped the baseline's
+   citation contract (0/12). LlamaIndex's own fix is
+   `CitationQueryEngine` — swap it into build_matched() and re-run. Does the
+   cited rate recover to 12/12, and what did its prompt and chunking do to
+   the other columns?
