@@ -59,3 +59,20 @@ is the thing the chapter claimed — verify it, don't take the verdict's word.
    `CitationQueryEngine` — swap it into build_matched() and re-run. Does the
    cited rate recover to 12/12, and what did its prompt and chunking do to
    the other columns?
+
+## Chapter 4 — DeepEval
+
+1. **Measure the flake rate properly.** We saw the gate flip across four
+   passes; four is an anecdote. Loop the pytest gate 10 times, tally
+   per-case pass counts, and compute what CI would experience as the
+   false-alarm rate. Then re-shape the gate to threshold the *mean* across
+   cases (like hand_rolled.py) instead of asserting per case — how much
+   does the flake rate drop?
+2. **Close the definition gap.** DeepEval's GEval metric takes your own
+   criteria text. Re-express the dive's rubric ("every claim must be
+   supported; true-but-unsupported fails") as a GEval and re-run
+   compare.py: does "24 hours" fail now? What did the switch cost per case
+   vs FaithfulnessMetric?
+3. **Cross-check with Ragas.** Score the same answers.json with Ragas'
+   faithfulness metric (separate venv if the resolver objects — see the
+   requirements.txt saga). Three tools, one word, how many definitions?
