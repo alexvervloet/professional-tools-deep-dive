@@ -1,0 +1,42 @@
+[
+  {
+    "case": "storage (answer in context)",
+    "prompt": "grounded",
+    "answer": "The Free plan includes 2 GB of storage."
+  },
+  {
+    "case": "storage (answer in context)",
+    "prompt": "loose",
+    "answer": "The Free plan includes 2 GB of storage."
+  },
+  {
+    "case": "SSO (negation-from-omission trap)",
+    "prompt": "grounded",
+    "answer": "The context doesn't say."
+  },
+  {
+    "case": "SSO (negation-from-omission trap)",
+    "prompt": "loose",
+    "answer": "Yes, the Pro plan includes SSO (single sign-on) as part of its features."
+  },
+  {
+    "case": "reset-link expiry (omitted)",
+    "prompt": "grounded",
+    "answer": "The context doesn't say."
+  },
+  {
+    "case": "reset-link expiry (omitted)",
+    "prompt": "loose",
+    "answer": "A password-reset link is typically valid for 24 hours."
+  },
+  {
+    "case": "data regions (omitted)",
+    "prompt": "grounded",
+    "answer": "The context doesn't say."
+  },
+  {
+    "case": "data regions (omitted)",
+    "prompt": "loose",
+    "answer": "Data is stored in multiple regions, but the specific regions are not provided in the context given."
+  }
+]
