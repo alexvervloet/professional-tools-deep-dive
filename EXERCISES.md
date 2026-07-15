@@ -76,3 +76,21 @@ is the thing the chapter claimed — verify it, don't take the verdict's word.
 3. **Cross-check with Ragas.** Score the same answers.json with Ragas'
    faithfulness metric (separate venv if the resolver objects — see the
    requirements.txt saga). Three tools, one word, how many definitions?
+
+## Chapter 5 — LangGraph
+
+1. **Make durability earn its complexity.** The interrupt demo resumes in
+   the same process, which the hand-rolled callback also handles. Split it:
+   one script that runs until the interrupt and exits; a second script that
+   resumes from a `SqliteSaver` checkpoint with the approval. Then try to
+   sketch what the hand-rolled loop would need to do the same — that gap is
+   LangGraph's actual product.
+2. **Find the tie-breaker task.** Both implementations tied 10/10. Design a
+   task where they *diverge* — hint: the baseline's max_steps=6 vs the
+   graph's default recursion limit of 25. Give both an impossible task
+   ("compute the 4th root of the Plus plan's color") and compare how many
+   LLM calls each burns before giving up, and what that costs.
+3. **Migrate off the deprecated import.** Install `langchain`, switch to
+   `from langchain.agents import create_agent`, and re-run compare.py. What
+   changed in the dependency tree, and did any measured number move? Now
+   you've done a framework version migration — write down how long it took.
