@@ -112,3 +112,22 @@ is the thing the chapter claimed — verify it, don't take the verdict's word.
    *combination* (flag if ANY fires) on all 18 cases. Does defense-in-depth
    reach the benign column's 0 false positives, or does stacking guards
    finally block one of the clean five?
+
+## Chapter 7 — Langfuse
+
+1. **Make retention the thing you feel.** Run `hand_rolled.py`, close the
+   terminal, and now answer "what did request #3 cost?" — you can't, the
+   stderr is gone. Do the same with `with_tool.py`, then open localhost:3000
+   and find it. Then wire the hand-rolled JSONL to a file + `jq` so it *does*
+   persist: how much of Langfuse did you just rebuild, and what's still
+   missing (UI, sharing, server-side pricing)?
+2. **Trust, then verify, the server's pricing.** The server priced the run to
+   the digit — on gpt-4o-mini, a model it knows. Point the app at a newer or
+   obscure model and re-run: does Langfuse still price it, or does
+   `total_cost` come back null the way ch01's hand table did on an unknown
+   model? Whose pricing map is more current?
+3. **Survive the version churn.** `set_trace_io()` is already deprecated for
+   `propagate_attributes()`. Migrate the port off it, set a real `session_id`
+   per run, and scope compare.py's query with `session_id=` instead of
+   `from_timestamp`. Did the deprecation warning point you at a working
+   replacement, or did you have to read the source (LESSONS §10)?
