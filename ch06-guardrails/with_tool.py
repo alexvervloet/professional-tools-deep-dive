@@ -39,7 +39,10 @@ import re
 from openai import OpenAI
 
 OLLAMA_BASE_URL = "http://localhost:11434/v1"
-LLAMA_GUARD_MODEL = "llama-guard3"
+# The 1B variant — same Llama Guard 3 taxonomy, smaller weights. The 8B blob
+# would not finalize on this network (see VERDICT/history); :1b did. Point this
+# at "llama-guard3" (8B) or a hosted endpoint if you have one.
+LLAMA_GUARD_MODEL = "llama-guard3:1b"
 
 _ollama = OpenAI(base_url=OLLAMA_BASE_URL, api_key="ollama")
 
