@@ -94,3 +94,21 @@ is the thing the chapter claimed — verify it, don't take the verdict's word.
    `from langchain.agents import create_agent`, and re-run compare.py. What
    changed in the dependency tree, and did any measured number move? Now
    you've done a framework version migration — write down how long it took.
+
+## Chapter 6 — Llama Guard + Guardrails AI
+
+1. **Does the 8B change the story?** This ran on Llama Guard 3 **1B**. Pull
+   `llama-guard3` (8B) or point at a hosted one, flip
+   `with_tool.LLAMA_GUARD_MODEL`, and re-run compare.py. Does the bigger
+   model catch any of the 0/3 indirect injections — or is the blind spot the
+   *taxonomy*, not the capacity? (Predicted: taxonomy. Verify it.)
+2. **Chase the S1 misfire.** Llama Guard labeled two injection attempts as
+   "S1 — violent crimes." Feed it just those payloads and vary the wording:
+   what is it actually tripping on? Is there a rephrase that makes the
+   misfire disappear (proving it's not really seeing injection)?
+3. **Build the two-layer guard that wins.** No single guard blocked
+   everything. Compose the honest production stack: Llama Guard for harmful +
+   `llm_guard` for injection + `channel_guard` on the output. Score the
+   *combination* (flag if ANY fires) on all 18 cases. Does defense-in-depth
+   reach the benign column's 0 false positives, or does stacking guards
+   finally block one of the clean five?
