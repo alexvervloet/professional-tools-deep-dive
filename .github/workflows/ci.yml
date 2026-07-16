@@ -1,0 +1,49 @@
+name: CI
+
+# This repo's whole subject is dependency churn, so its CI checks the thing
+# that churns: do the hard-pinned requirements still resolve and install
+# cleanly on a fresh box, and does every file still parse? The per-chapter
+# compare.py runs are deliberately NOT here — they need API keys (secrun), a
+# local Ollama with llama-guard3, and a self-hosted Langfuse (six containers),
+# none of which belong in CI. A green check means "the pins install and the
+# code parses," which is exactly the promise this repo makes about its pins.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  install-and-parse:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      # The load-bearing step: the pinned stack must still resolve together.
+      # If a transitive release breaks the pins, this is where it turns red.
+      - name: Install pinned requirements
+        run: pip install -r requirements.txt
+
+      # Catch syntax breaks across every chapter without needing keys/services.
+      - name: Compile all sources
+        run: python -m compileall -q ch01-litellm ch02-instructor ch03-llamaindex ch04-deepeval ch05-langgraph ch06-guardrails ch07-langfuse
+
+      # Import the pure data/logic modules (no key, no network at import time),
+      # so a rename in one of the tool SDKs that breaks these surfaces here.
+      - name: Import the keyless core modules
+        run: |
+          python - <<'PY'
+          import importlib, sys
+          sys.path.insert(0, "ch02-instructor"); importlib.import_module("extraction")
+          sys.path.insert(0, "ch03-llamaindex"); importlib.import_module("evalset")
+          sys.path.insert(0, "ch05-langgraph"); importlib.import_module("tasks")
+          sys.path.insert(0, "ch06-guardrails"); importlib.import_module("cases")
+          sys.path.insert(0, "ch07-langfuse"); importlib.import_module("app")
+          print("keyless core modules import OK")
+          PY
