@@ -95,10 +95,28 @@ of over-committing.
       the dive's task eval. Reuse the COMPARISON.md instincts from
       askrepo-langchain (separate project) but keep this chapter minimal —
       loop, state, one human-in-the-loop interrupt.
-- [ ] **M6 — ch06 Llama Guard + Guardrails AI**: baseline = prompt-injection
-      dive's detectors + output checks. Llama Guard 3 runs locally via
-      Ollama. Score managed vs hand-rolled with the dive's red-team eval,
-      including `doc_phishing_line`. Report per-attack-category results.
+- [~] **M6 — ch06 Llama Guard + Guardrails AI — BLOCKED, half-measured**
+      (2026-07-14). Built: 18 cases in 4 families (direct/indirect/harmful/
+      benign), the dive's three guards ported, Guardrails AI port, compare.py
+      with a per-family scoreboard. **Blocker: `ollama pull llama-guard3` (and
+      `:1b`) stall mid-blob** — chunk 0 freezes at a fixed offset, registry
+      manifests fetch fine; retried several times, both sizes. So the central
+      question (does a safety classifier catch injection?) is UNMEASURED, and
+      compare.py drops unreachable guards with a banner rather than scoring
+      them as misses — see ch06-guardrails/VERDICT.md, which is marked
+      INCOMPLETE on purpose.
+      **To finish:** retry the pull on another network, serve Llama Guard from
+      the LAN LM Studio box, or point `with_tool.LLAMA_GUARD_MODEL` at a hosted
+      Llama Guard (Together/Groq/Fireworks); then rerun compare.py and rewrite
+      the verdict from the output.
+      Already measured and worth keeping: Guardrails AI's Hub is account-gated
+      (401 without a guardrailsai.com token — custom validators are the keyless
+      path); the framework-wrapped regex detects *identically* to the bare
+      heuristic (2/6, 0/3, 0/4), so the framework buys scaffolding, not
+      detection; the dive's heuristic false-positives on "ignore the typos"
+      exactly as predicted; and the dive's llm_guard flags all 4/4 harmful
+      cases despite its rubric only asking about injection — right for the
+      wrong reason, ch04's category error from the other side.
 - [ ] **M7 — ch07 Langfuse**: baseline = production dive's tracing + prompt
       versioning and observability dive's metrics. Self-host Langfuse via
       docker compose (keeps it keyless/local). Instrument one small app both

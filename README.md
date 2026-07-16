@@ -53,7 +53,7 @@ again before trusting the slate in 2027.
 | 3 | **[LlamaIndex](ch03-llamaindex/)** | chunk → embed → retrieve → cite pipeline | [RAG](https://github.com/alexvervloet/rag-deep-dive) | **done** — [verdict](ch03-llamaindex/VERDICT.md) |
 | 4 | **[DeepEval](ch04-deepeval/)** | eval harness and regression gate | [Evals](https://github.com/alexvervloet/evals-deep-dive) | **done** — [verdict](ch04-deepeval/VERDICT.md) |
 | 5 | **[LangGraph](ch05-langgraph/)** | agent loop, tool routing, state | [Agents](https://github.com/alexvervloet/agents-deep-dive) | **done** — [verdict](ch05-langgraph/VERDICT.md) |
-| 6 | **Llama Guard + Guardrails AI** | input/output detectors and checks | [Prompt Injection & Guardrails](https://github.com/alexvervloet/prompt-injection-deep-dive) | planned |
+| 6 | **[Llama Guard + Guardrails AI](ch06-guardrails/)** | input/output detectors and checks | [Prompt Injection & Guardrails](https://github.com/alexvervloet/prompt-injection-deep-dive) | **blocked** — [interim findings](ch06-guardrails/VERDICT.md); Llama Guard won't download |
 | 7 | **Langfuse** | tracing, cost accounting, prompt versioning | [Production](https://github.com/alexvervloet/ai-in-production-deep-dive) + [Observability](https://github.com/alexvervloet/observability-deep-dive) | planned |
 
 Chapters land incrementally; the status column is the source of truth. A
