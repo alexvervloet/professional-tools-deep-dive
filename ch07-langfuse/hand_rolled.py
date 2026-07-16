@@ -71,7 +71,13 @@ def start_trace(name: str):
 
 
 def answer(client: OpenAI, question: str) -> dict:
-    """Run one request, fully traced. Returns the trace summary."""
+    """Run one request, fully traced. Returns the trace summary.
+
+    The summary is built AFTER the `with` closes, because start_trace sets
+    duration_ms in its exit hook — returning from inside the block would hand
+    back a record with duration_ms=0.0 that contradicts the JSON written to
+    stderr (an honest-output bug we hit and fixed; see LESSONS §presentation).
+    """
     with start_trace("support.answer") as trace:
         trace.set(prompt_version=app.ACTIVE_VERSION, model=app.MODEL)
 
@@ -79,27 +85,25 @@ def answer(client: OpenAI, question: str) -> dict:
             allowed, reason = app.check_input(question)
         if not allowed:
             trace.set(blocked=True, block_reason=reason)
-            return trace.summary()
-
-        with trace.span("model.call"):
-            response = client.chat.completions.create(
-                model=app.MODEL, temperature=0, max_tokens=200,
-                messages=[
-                    {"role": "system", "content": app.PROMPTS[app.ACTIVE_VERSION]},
-                    {"role": "user", "content": question},
-                ],
+        else:
+            with trace.span("model.call"):
+                response = client.chat.completions.create(
+                    model=app.MODEL, temperature=0, max_tokens=200,
+                    messages=[
+                        {"role": "system", "content": app.PROMPTS[app.ACTIVE_VERSION]},
+                        {"role": "user", "content": question},
+                    ],
+                )
+            usage = response.usage
+            assert usage is not None
+            cost = usage.prompt_tokens / 1e6 * 0.15 + usage.completion_tokens / 1e6 * 0.60
+            trace.set(
+                prompt_tokens=usage.prompt_tokens, completion_tokens=usage.completion_tokens,
+                cost_usd=round(cost, 6),
             )
-        usage = response.usage
-        assert usage is not None
-        cost = usage.prompt_tokens / 1e6 * 0.15 + usage.completion_tokens / 1e6 * 0.60
-        trace.set(
-            prompt_tokens=usage.prompt_tokens, completion_tokens=usage.completion_tokens,
-            cost_usd=round(cost, 6),
-        )
-
-        with trace.span("guard.output"):
-            _ = app.redact_pii(response.choices[0].message.content or "")
-        return trace.summary()
+            with trace.span("guard.output"):
+                _ = app.redact_pii(response.choices[0].message.content or "")
+    return trace.summary()
 
 
 if __name__ == "__main__":
