@@ -190,6 +190,26 @@ you adopt it, capabilities migrate between packages, and "just install it" can
 mean an account or an unsatisfiable resolver. Pin and record the exact versions
 you measured against — they encode findings, and they *will* move.
 
+## 11. Sometimes the tool just wins — and the discipline is to bound the win, not to hedge it
+
+Most of these lessons are cautions against over-crediting a tool, and it would
+be dishonest to let that curdle into "the hand-rolled version always suffices."
+Ch07 didn't tie and didn't debunk: an observability *platform* does things 121
+lines of stdlib genuinely can't — persistence past process exit, a query API, a
+UI, sharing with a teammate who wasn't at your terminal. The move there wasn't
+to manufacture a caveat; it was to state the win **precisely** and price it. So
+the additions got named exactly (and *subtracted* what the hand-rolled tracer
+already did — including cost, which it also computes: Langfuse's contribution to
+pricing is that the *server* maintains the model-price map, confirmed by it
+matching the hand total to the digit from tokens alone), and the cost got named
+too: six always-on containers and a schema you don't own. A real win, bounded.
+
+Takeaway: skepticism is a method, not a verdict. When the measurement says the
+tool wins, say so — then do the same work you'd do to debunk it: name the exact
+capabilities it adds, subtract the ones you already had, and state the price.
+"It's better" is as lazy as "it's bloat"; the honest output is *what*, by *how
+much*, at *what cost*.
+
 ---
 
 *These came out of building `professional-tools-deep-dive` — the deep-dive
