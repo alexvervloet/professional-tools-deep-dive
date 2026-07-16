@@ -138,7 +138,10 @@ services:
       --requirepass ${REDIS_AUTH:-myredissecret}
       --maxmemory-policy noeviction
     ports:
-      - 127.0.0.1:6379:6379
+      # Host side remapped 6379 -> 6380 (local Redis already owns 6379).
+      # Langfuse reaches this over the docker network (host `redis`), so only
+      # the left-hand host port matters here.
+      - 127.0.0.1:6380:6379
     volumes:
       - langfuse_redis_data:/data
     healthcheck:
@@ -162,7 +165,12 @@ services:
       TZ: UTC
       PGTZ: UTC
     ports:
-      - 127.0.0.1:5432:5432
+      # Host side remapped 5432 -> 5433 to avoid colliding with a local
+      # Postgres. Langfuse's own services reach this DB over the internal
+      # docker network (DATABASE_URL uses host `postgres:5432`), so the host
+      # binding is only for optional external inspection — the port number on
+      # the left is free to change.
+      - 127.0.0.1:5433:5432
     volumes:
       - langfuse_postgres_data:/var/lib/postgresql/data
 
