@@ -108,10 +108,18 @@ of over-committing.
       not detection); its Hub is account-gated (401; custom Validator is the
       keyless path). compare.py drops unreachable guards loudly (never scores
       an unavailable guard as a miss — the near-miss caught during the block).
-- [ ] **M7 — ch07 Langfuse**: baseline = production dive's tracing + prompt
-      versioning and observability dive's metrics. Self-host Langfuse via
-      docker compose (keeps it keyless/local). Instrument one small app both
-      ways; verdict on what a platform buys over structured logs you own.
+- [x] **M7 — ch07 Langfuse** (done 2026-07-16; self-hosted v3.217 via docker,
+      6 containers, headless project init, keyless). See
+      ch07-langfuse/VERDICT.md. Both sides capture the same per-request record
+      (the hand-rolled tracer even computes cost); the platform's real
+      additions are persistence, a query API, a UI, server-side pricing, and
+      sharing. Measured: Langfuse priced the run to the digit ($0.000111 ==
+      hand-rolled) from tokens alone, using its own model-pricing map. Cost:
+      six always-on containers + schema lock-in. Churn tax again: had to remap
+      postgres 5432 / redis 6379 host ports (local services own them), and the
+      SDK's canonical calls moved (start_as_current_span -> _observation;
+      set_trace_io already deprecated). Loud auth_check() so an unreachable
+      server can't masquerade as "no traces" (ch06 discipline).
 - [ ] **M8 — series wiring**: EXERCISES.md (grown per chapter, may land
       earlier), TEXTBOOK.md chapter (match the series pattern), GitHub remote
       + submodule in the parent repo, add to README/CHOOSING/CAREERS in the
