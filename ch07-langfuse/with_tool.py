@@ -29,11 +29,16 @@ Requires the stack up and .env present (see README):
 
 import os
 import sys
+from pathlib import Path
 
 from dotenv import load_dotenv
 from openai import OpenAI
 
 import app
+
+# The Langfuse keys live in THIS chapter's .env (headless project init), not
+# the repo-root secrets file, so load it explicitly regardless of CWD.
+load_dotenv(Path(__file__).parent / ".env")
 
 
 def get_langfuse():
@@ -60,21 +65,30 @@ def get_langfuse():
 
 
 def answer(lf, oai: OpenAI, question: str) -> str:
-    """Run one request as a Langfuse trace with nested spans/generation."""
-    with lf.start_as_current_span(name="support.answer") as root:
-        lf.update_current_trace(
-            input=question,
-            metadata={"prompt_version": app.ACTIVE_VERSION, "model": app.MODEL},
-        )
+    """Run one request as a Langfuse trace with nested spans/generation.
 
-        with lf.start_as_current_span(name="guard.input"):
+    v4 SDK: one observation API, `start_as_current_observation(as_type=...)`,
+    with the model call typed as a "generation" so token usage and cost roll
+    up. Trace-level input/output are set via the root observation's
+    set_trace_io(); the metadata (prompt version, model, block reason) rides on
+    the root span.
+    """
+    with lf.start_as_current_observation(
+        name="support.answer", as_type="span", input=question,
+        metadata={"prompt_version": app.ACTIVE_VERSION, "model": app.MODEL},
+    ) as root:
+        # The trace derives its input/output from this root observation in v4;
+        # set_trace_io() is deprecated (churn — see VERDICT).
+
+        with lf.start_as_current_observation(name="guard.input", as_type="span"):
             allowed, reason = app.check_input(question)
         if not allowed:
-            root.update(metadata={"blocked": True, "block_reason": reason})
-            lf.update_current_trace(output="(blocked)")
+            root.update(metadata={"blocked": True, "block_reason": reason}, output="(blocked)")
             return "(blocked)"
 
-        with lf.start_as_current_generation(name="model.call", model=app.MODEL) as gen:
+        with lf.start_as_current_observation(
+            name="model.call", as_type="generation", model=app.MODEL, input=question,
+        ) as gen:
             response = oai.chat.completions.create(
                 model=app.MODEL, temperature=0, max_tokens=200,
                 messages=[
@@ -85,20 +99,16 @@ def answer(lf, oai: OpenAI, question: str) -> str:
             usage = response.usage
             assert usage is not None
             text = response.choices[0].message.content or ""
-            # Feed the generation its typed fields — this is what lets the UI
-            # aggregate tokens/cost across traces without log parsing.
+            # Typed generation fields — this is what lets the UI aggregate
+            # tokens/cost across traces without any log parsing.
             gen.update(
-                input=question,
                 output=text,
-                usage_details={
-                    "input": usage.prompt_tokens,
-                    "output": usage.completion_tokens,
-                },
+                usage_details={"input": usage.prompt_tokens, "output": usage.completion_tokens},
             )
 
-        with lf.start_as_current_span(name="guard.output"):
+        with lf.start_as_current_observation(name="guard.output", as_type="span"):
             text = app.redact_pii(text)
-        lf.update_current_trace(output=text)
+        root.update(output=text)
         return text
 
 
