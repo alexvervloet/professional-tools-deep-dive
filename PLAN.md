@@ -95,28 +95,19 @@ of over-committing.
       the dive's task eval. Reuse the COMPARISON.md instincts from
       askrepo-langchain (separate project) but keep this chapter minimal —
       loop, state, one human-in-the-loop interrupt.
-- [~] **M6 — ch06 Llama Guard + Guardrails AI — BLOCKED, half-measured**
-      (2026-07-14). Built: 18 cases in 4 families (direct/indirect/harmful/
-      benign), the dive's three guards ported, Guardrails AI port, compare.py
-      with a per-family scoreboard. **Blocker: `ollama pull llama-guard3` (and
-      `:1b`) stall mid-blob** — chunk 0 freezes at a fixed offset, registry
-      manifests fetch fine; retried several times, both sizes. So the central
-      question (does a safety classifier catch injection?) is UNMEASURED, and
-      compare.py drops unreachable guards with a banner rather than scoring
-      them as misses — see ch06-guardrails/VERDICT.md, which is marked
-      INCOMPLETE on purpose.
-      **To finish:** retry the pull on another network, serve Llama Guard from
-      the LAN LM Studio box, or point `with_tool.LLAMA_GUARD_MODEL` at a hosted
-      Llama Guard (Together/Groq/Fireworks); then rerun compare.py and rewrite
-      the verdict from the output.
-      Already measured and worth keeping: Guardrails AI's Hub is account-gated
-      (401 without a guardrailsai.com token — custom validators are the keyless
-      path); the framework-wrapped regex detects *identically* to the bare
-      heuristic (2/6, 0/3, 0/4), so the framework buys scaffolding, not
-      detection; the dive's heuristic false-positives on "ignore the typos"
-      exactly as predicted; and the dive's llm_guard flags all 4/4 harmful
-      cases despite its rubric only asking about injection — right for the
-      wrong reason, ch04's category error from the other side.
+- [x] **M6 — ch06 Llama Guard + Guardrails AI** (done 2026-07-16 after the
+      pull finally finalized on retry — `llama-guard3:1b`; the 8B blob never
+      finalized). See ch06-guardrails/VERDICT.md. **Prediction confirmed:**
+      Llama Guard 3 = perfect on harmful (4/4, correct S1/S2/S11 codes, 0
+      false positives) and blind to injection (0/3 indirect, missed
+      doc_phishing_line) — its taxonomy has no injection cell. The surprise,
+      confirmed: the managed model covers no category the dive's own llm_guard
+      didn't already (llm_guard: 6/6 direct, 3/3 indirect, 4/4 harmful, and
+      the ONLY guard to block doc_phishing_line). Guardrails AI's wrapped
+      regex detected identically to the bare heuristic (framework = scaffolding
+      not detection); its Hub is account-gated (401; custom Validator is the
+      keyless path). compare.py drops unreachable guards loudly (never scores
+      an unavailable guard as a miss — the near-miss caught during the block).
 - [ ] **M7 — ch07 Langfuse**: baseline = production dive's tracing + prompt
       versioning and observability dive's metrics. Self-host Langfuse via
       docker compose (keeps it keyless/local). Instrument one small app both
