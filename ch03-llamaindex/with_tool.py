@@ -1,16 +1,15 @@
 """
-Chapter 3 port — the same RAG through LlamaIndex, twice.
-========================================================
+Chapter 3 port: the same RAG through LlamaIndex, twice.
 
 Two builds on the same corpus, because "use the framework" hides a decision:
 
   - build_default(): LlamaIndex exactly as it ships. Reader, splitter, embed
-    model, LLM, top-k, prompt — every knob on the value someone at LlamaIndex
+    model, LLM, top-k, prompt: every knob on the value someone at LlamaIndex
     chose. The rag dive chose OUR values by measuring (chunk size in its
     example 05, k in 09); this engine is what you get when you don't.
     __main__ prints what those defaults actually are on this version.
   - build_matched(): the same knobs turned to the baseline's values wherever
-    the framework exposes them — text-embedding-3-small, gpt-4o-mini,
+    the framework exposes them: text-embedding-3-small, gpt-4o-mini,
     similarity_top_k=4, a grounding prompt, and a SentenceSplitter sized to
     approximate the baseline's 120-word window (~160 tokens). Two honest
     mismatches remain: the splitter is sentence-aware (the baseline's window
@@ -40,12 +39,12 @@ CORPUS_DIR = Path(__file__).parent / "corpus"
 
 # The baseline's grounding discipline, restated in LlamaIndex's template
 # variables. LlamaIndex numbers nothing, so [n] citations become "name the
-# source file" — the closest expressible equivalent.
+# source file": the closest expressible equivalent.
 GROUNDED_QA_TEMPLATE = PromptTemplate(
     "Context information is below.\n"
     "---------------------\n{context_str}\n---------------------\n"
     "Answer the question using ONLY the context above. If the context does "
-    "not contain the answer, say you don't know — do not guess or rely on "
+    "not contain the answer, say you don't know. Do not guess or rely on "
     "outside knowledge.\nQuestion: {query_str}\nAnswer: "
 )
 

@@ -1,6 +1,5 @@
 """
-Chapter 3 baseline — the rag dive's pipeline, condensed into one file.
-======================================================================
+Chapter 3 baseline: the rag dive's pipeline, condensed into one file.
 
 Chunk -> embed -> cosine search -> grounded prompt -> cite. Ported from
 rag-deep-dive's `rag/` package (chunking.py, store.py, pipeline.py,
@@ -12,7 +11,7 @@ citations.
 
 Every default here is one YOU chose, and the rag dive measured: chunk size
 (its example 05), k (example 09), the prompt (example 04). Keep that in mind
-reading with_tool.py, where every one of these knobs still exists — but
+reading with_tool.py, where every one of these knobs still exists, but
 someone else chose the starting values.
 
 Run it:
@@ -40,7 +39,7 @@ CORPUS_DIR = Path(__file__).parent / "corpus"
 GROUNDED_SYSTEM = (
     "You answer questions using ONLY the numbered context provided in the user "
     "message. Cite the sources you use with bracketed numbers like [1] or [2]. "
-    "If the context does not contain the answer, say you don't know — do not "
+    "If the context does not contain the answer, say you don't know. Do not "
     "guess or rely on outside knowledge."
 )
 

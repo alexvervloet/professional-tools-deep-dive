@@ -1,22 +1,21 @@
 """
-Chapter 2 port — the same extraction through Instructor, and through the
+Chapter 2 port: the same extraction through Instructor, and through the
 provider's own structured-output mode.
-=========================================================================
 
 Two competitors to the hand-rolled loop, because in 2026 the real question
-isn't "Instructor or hand-rolled" — it's "does a library still earn its keep
+isn't "Instructor or hand-rolled"; it's "does a library still earn its keep
 now that providers do this natively?"
 
   - instructor_extract(): `instructor.from_openai(client)` patches the client;
     `response_model=JobPosting` replaces the schema block, json.loads, the
     Pydantic call, the fence-stripping, AND the retry-with-error-feedback
-    loop — that whole second half of hand_rolled.py is now one kwarg
+    loop: that whole second half of hand_rolled.py is now one kwarg
     (`max_retries`). Works against Ollama too, in JSON mode.
-  - native_extract(): `client.chat.completions.parse()` — the OpenAI dive's
+  - native_extract(): `client.chat.completions.parse()`, the OpenAI dive's
     example 14. No retries because (on OpenAI) none are needed for *shape*:
     constrained decoding guarantees schema-valid output at generation time.
     What it does NOT guarantee is Pydantic-side constraints it can't express
-    in strict mode — compare.py checks whether that gap is real.
+    in strict mode; compare.py checks whether that gap is real.
 
 Both count actual HTTP requests via an httpx event hook, so compare.py
 reports calls the provider billed, not attempts we think we made.
@@ -63,7 +62,7 @@ def _messages(backend: str, posting: str) -> list[dict]:
 
 def instructor_extract(backend: str, posting: str) -> tuple[JobPosting, int]:
     client, model, calls = counting_client(backend)
-    # TOOLS mode (function calling) for OpenAI; Ollama gets JSON mode — same
+    # TOOLS mode (function calling) for OpenAI; Ollama gets JSON mode: same
     # channel the hand-rolled version uses, so the comparison stays fair.
     mode = instructor.Mode.TOOLS if backend == "openai" else instructor.Mode.JSON
     patched = instructor.from_openai(client, mode=mode)

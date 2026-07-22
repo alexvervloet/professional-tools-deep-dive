@@ -1,19 +1,18 @@
 """
-Chapter 1 port — the same provider layer through LiteLLM.
-=========================================================
+Chapter 1 port: the same provider layer through LiteLLM.
 
-Same three capabilities as hand_rolled.py — chat, streaming, tool calling —
+Same three capabilities as hand_rolled.py: chat, streaming, tool calling
 same three providers. One request shape (OpenAI's), one response shape, for
 everything. The provider branch you maintained by hand is now a model-name
 prefix: "gpt-4o-mini" vs "anthropic/claude-haiku-4-5" vs "ollama/qwen3:8b".
 
-What LiteLLM is doing under the hood is exactly what hand_rolled.py does —
+What LiteLLM is doing under the hood is exactly what hand_rolled.py does 
 re-dressing your OpenAI-shaped request in each provider's required format and
 translating the response back. You wrote that translation once for two
 providers; LiteLLM maintains it for ~100. That's the whole product.
 
 Also here, because they come with the router "for free":
-  - completion_cost(): cost from LiteLLM's maintained pricing map — the
+  - completion_cost(): cost from LiteLLM's maintained pricing map, the
     hand-updated PRICING table in hand_rolled.py, as someone else's problem.
   - fallbacks: one kwarg to retry a request on a different provider when the
     first one fails. compare.py measures what this actually does to errors.
@@ -38,7 +37,7 @@ MODELS = {
     "openai": "gpt-4o-mini",
     "anthropic": "anthropic/claude-haiku-4-5",
     # NOT "ollama/qwen3:8b": that prefix routes through Ollama's generate API,
-    # and the final turn of a tool call comes back as an EMPTY STRING — no
+    # and the final turn of a tool call comes back as an EMPTY STRING: no
     # error, no warning (measured; see VERDICT.md). The prefix picks a code
     # path, not just a provider.
     "ollama": "ollama_chat/qwen3:8b",
@@ -50,7 +49,7 @@ def get_current_weather(city: str) -> str:
     return fake_db.get(city, "unknown")
 
 
-# One tool definition, OpenAI's shape, for every provider — LiteLLM translates.
+# One tool definition, OpenAI's shape, for every provider: LiteLLM translates.
 TOOLS = [{
     "type": "function",
     "function": {
@@ -99,7 +98,7 @@ def stream(provider: str, prompt: str) -> str:
 
 
 def tool_call(provider: str, prompt: str) -> str:
-    """The same dance as hand_rolled.py — but one code path for all providers."""
+    """The same dance as hand_rolled.py, but one code path for all providers."""
     messages = [{"role": "user", "content": prompt}]
     first = completion(model=MODELS[provider], messages=messages, tools=TOOLS)
     call = (first.choices[0].message.tool_calls or [None])[0]
@@ -117,7 +116,7 @@ def chat_with_fallback(prompt: str) -> tuple[str, str]:
 
     Returns (model_that_answered, reply). The point compare.py probes: what
     happened to the *error* from the first model? (Answer: you never see it
-    unless you go looking — convenience and opacity are the same feature.)
+    unless you go looking; convenience and opacity are the same feature.)
     """
     response = completion(
         model="gpt-4o-mini-does-not-exist",

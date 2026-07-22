@@ -1,17 +1,16 @@
 """
-Chapter 2 measurement — the three-way, on shape AND on meaning.
-===============================================================
+Chapter 2 measurement: the three-way, on shape AND on meaning.
 
 Runs hand-rolled vs Instructor vs provider-native over the five trap postings
 (× REPS), on a cloud model and a local one. Two different questions get
 measured, because they have different answers:
 
-  1. SHAPE — did a validated JobPosting come back at all, and how many HTTP
+  1. SHAPE: did a validated JobPosting come back at all, and how many HTTP
      calls did it take? This is what the tools advertise.
-  2. MEANING — did the *values* survive the traps (hourly rate NOT annualized,
+  2. MEANING: did the *values* survive the traps (hourly rate NOT annualized,
      hybrid NOT remote, prose date to ISO, NOK spotted)? The schema transport
      can't save you here; this is where "structured output" quietly ends and
-     "correct extraction" begins. Checked with TRAPS below — the same checks
+     "correct extraction" begins. Checked with TRAPS below: the same checks
      for every approach, per this series' rule: hold the judge constant.
 
 Run it (several minutes; the local model is the slow half):

@@ -1,9 +1,8 @@
 """
-Chapter 1 baseline — the provider layer you wrote by hand.
-==========================================================
+Chapter 1 baseline: the provider layer you wrote by hand.
 
 This is the from-scratch version, ported (and condensed) from the OpenAI and
-Claude API dives. Three capabilities — chat, streaming, tool calling — against
+Claude API dives. Three capabilities (chat, streaming, tool calling) against
 three providers: OpenAI, Anthropic, and a local Ollama model.
 
 Read it before reading with_tool.py, and notice what you're maintaining:
@@ -14,7 +13,7 @@ Read it before reading with_tool.py, and notice what you're maintaining:
     too (role="tool" vs a user turn carrying tool_result blocks).
   - TWO streaming event shapes (chunk.choices[0].delta.content vs
     content_block_delta events).
-  - Ollama rides OpenAI's SDK via its /v1 compatibility endpoint — one shape
+  - Ollama rides OpenAI's SDK via its /v1 compatibility endpoint: one shape
     fewer, which is itself a lesson in why everyone converged on that shape.
   - A hand-maintained PRICING table (from the dives' utils/pricing.py) that is
     out of date the day a provider changes a price.
@@ -44,7 +43,7 @@ OLLAMA_BASE_URL = "http://localhost:11434/v1"
 
 
 # --- Pricing: hand-maintained, per the API dives' utils/pricing.py. ---------
-# ⚠️ Snapshot as of 2026-07-14; check the providers' pricing pages.
+# Snapshot as of 2026-07-14; check the providers' pricing pages.
 @dataclass(frozen=True)
 class ModelPrice:
     input_per_1m: float

@@ -1,6 +1,5 @@
 """
-Chapter 2 baseline — schema in the prompt, parse-and-retry by hand.
-===================================================================
+Chapter 2 baseline: schema in the prompt, parse-and-retry by hand.
 
 This is what the prompt-engineering dive built (example 02), plus the retry
 loop every production version of it grows within a week:
@@ -8,9 +7,9 @@ loop every production version of it grows within a week:
   1. Render the schema as prose inside the prompt (schema_block()).
   2. Ask for JSON mode so the reply is at least *syntactically* JSON.
   3. json.loads it (stripping the ```json fences some models add anyway).
-  4. Validate with Pydantic — because "valid JSON" says nothing about the
+  4. Validate with Pydantic, because "valid JSON" says nothing about the
      right keys, types, enums, or the currency regex.
-  5. On failure, go again — with the validation error pasted into the
+  5. On failure, go again, with the validation error pasted into the
      conversation so the model can fix what it got wrong.
 
 Steps 3-5 are the code Instructor exists to delete. Note the shape of what
@@ -37,7 +36,7 @@ OLLAMA_MODEL = "qwen3:8b"
 OLLAMA_BASE_URL = "http://localhost:11434/v1"
 
 MAX_RETRIES = 2
-TEMPERATURE = 0.7  # deliberately not 0 — compare.py measures reliability
+TEMPERATURE = 0.7  # deliberately not 0; compare.py measures reliability
 
 
 def make_client(backend: str) -> tuple[OpenAI, str]:

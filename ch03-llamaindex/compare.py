@@ -1,14 +1,13 @@
 """
-Chapter 3 measurement — three pipelines, one eval.
-==================================================
+Chapter 3 measurement: three pipelines, one eval.
 
 Scores the hand-rolled baseline, LlamaIndex-as-it-ships, and
 LlamaIndex-matched-to-the-baseline on the same 12 labelled questions with
 the rag dive's metrics (hit rate @ k, MRR, answer-fact). One eval function,
-three pipelines — the measuring stick never moves.
+three pipelines; the measuring stick never moves.
 
 Note the defaults engine is scored *at its own defaults* (k=2, ada-002,
-gpt-3.5-turbo, 1024-token chunks) — that's the pipeline you actually shipped
+gpt-3.5-turbo, 1024-token chunks): that's the pipeline you actually shipped
 if you copied the quickstart and moved on.
 
 Run it:
@@ -59,7 +58,7 @@ for name, (retrieve_fn, answer_fn, n_chunks) in pipelines.items():
     started = time.perf_counter()
     result = run_eval(retrieve_fn, answer_fn)
     seconds_per_q = (time.perf_counter() - started) / len(EVALSET)
-    # Citation discipline: does the answer point back at a source at all —
+    # Citation discipline: does the answer point back at a source at all 
     # a [n] marker (the baseline's contract) or a corpus filename?
     cited = sum(
         1 for text in result.answers

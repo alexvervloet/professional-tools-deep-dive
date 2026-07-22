@@ -1,14 +1,13 @@
 """
-Chapter 1 measurement — where the two implementations actually differ.
-======================================================================
+Chapter 1 measurement: where the two implementations actually differ.
 
 hand_rolled.py and with_tool.py both work. This script measures the seams:
 
-  1. Cost accounting — same request, same token counts: does LiteLLM's
+  1. Cost accounting: same request, same token counts. Does LiteLLM's
      maintained pricing map agree with the hand-updated table?
-  2. Error surfacing — the same mistake (a model that doesn't exist) through
+  2. Error surfacing: the same mistake (a model that doesn't exist) through
      the raw SDK vs through the router. What exception do you debug from?
-  3. The silent route difference — the same local model through LiteLLM's two
+  3. The silent route difference: the same local model through LiteLLM's two
      ollama prefixes vs Ollama's own OpenAI-compat endpoint, on a tool call.
 
 Run it:

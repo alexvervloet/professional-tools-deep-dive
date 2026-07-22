@@ -1,16 +1,15 @@
 """
-Chapter 2 shared pieces — the schema, the rules, and the messy inputs.
-======================================================================
+Chapter 2 shared pieces: the schema, the rules, and the messy inputs.
 
 One extraction task, defined once, so all three approaches (hand-rolled,
 Instructor, provider-native) compete on identical ground:
 
   - JobPosting: the Pydantic model. Ported from the prompt-engineering dive's
     example 02, where the same schema lived as a block of prose *inside the
-    prompt*. Field descriptions here mirror that prose — Instructor and the
+    prompt*. Field descriptions here mirror that prose; Instructor and the
     native mode send them to the model as the schema; the hand-rolled version
     renders them back into a prompt block (schema_block()).
-  - SYSTEM_RULES: the normalization policy. Identical for every approach —
+  - SYSTEM_RULES: the normalization policy. Identical for every approach 
     the comparison is about how the SCHEMA travels, not about prompt quality.
   - POSTINGS: five real-shaped postings, each with a trap the schema has to
     survive (an hourly rate that must NOT become an annual salary, a hybrid
@@ -61,7 +60,7 @@ class JobPosting(BaseModel):
 
 def schema_block() -> str:
     """The hand-rolled version's schema-as-prose, generated from the model so
-    the two stay in sync — this block is what the dives wrote by hand."""
+    the two stay in sync; this block is what the dives wrote by hand."""
     lines = ["Return ONLY JSON with exactly these keys:"]
     for name, field in JobPosting.model_fields.items():
         lines.append(f"  {name}: {field.description}")
