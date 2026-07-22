@@ -1,6 +1,5 @@
 """
-Chapter 4 shared pieces — the faithfulness cases and the two prompts.
-=====================================================================
+Chapter 4 shared pieces: the faithfulness cases and the two prompts.
 
 Ported from evals-deep-dive example 13. Four question+context cases where
 the context deliberately omits a detail, answered under two systems:
@@ -11,11 +10,11 @@ the context deliberately omits a detail, answered under two systems:
 The known hard case rides along: the SSO question, where a loose "No, the
 Pro plan doesn't include SSO" infers absence from silence. The evals dive's
 own judge doesn't always penalize that (its example 13 prints a callout
-about it) — part of what this chapter measures is whether DeepEval's
+about it); part of what this chapter measures is whether DeepEval's
 multi-step FaithfulnessMetric reads that case differently.
 
 Answers are generated ONCE by fixtures.py and committed in answers.json, so
-both harnesses — and every rerun, including CI — score the identical texts.
+both harnesses (and every rerun, including CI) score the identical texts.
 Same principle as holding the judge constant: if the scores differ, it's the
 scorer that differs.
 """
@@ -51,7 +50,7 @@ GROUNDED_SYSTEM = (
 LOOSE_SYSTEM = (
     "You are a confident, decisive assistant. Always give the user a specific, "
     "definitive one-sentence answer. Never say you don't know or that information "
-    "is missing — always provide your best concrete answer."
+    "is missing; always provide your best concrete answer."
 )
 
 ANSWER_MODEL = "gpt-4o-mini"  # system under test

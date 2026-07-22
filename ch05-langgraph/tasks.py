@@ -1,24 +1,23 @@
 """
-Chapter 5 shared pieces — the tools, the tasks, and the success checks.
-=======================================================================
+Chapter 5 shared pieces: the tools, the tasks, and the success checks.
 
 The three tools are the agents dive's toolbox (agent/tools.py), copied
 function-for-function: a safe calculator, a keyword search over the Nimbus
-Notes facts, and save_note — the side-effecting one that must be gated
+Notes facts, and save_note, the side-effecting one that must be gated
 behind human approval. Both implementations expose the SAME Python
 functions to their respective loops; only the wrapping differs.
 
 The task set is this chapter's eval (the agents dive demonstrates its loop
-but doesn't ship a labelled task set — same mechanics as the evals dive's
+but doesn't ship a labelled task set; same mechanics as the evals dive's
 trajectory example). Each task has a programmatic success check on the
 final answer or on observable behavior, so no LLM judge is needed:
 
-  1. multi-step math      — must end with the right number
-  2. knowledge lookup     — must surface the fact from the KB
-  3. compose two tools    — search a price, then compute with it
-  4. denied save          — human DENIES approval: the note must NOT exist
+  1. multi-step math      must end with the right number
+  2. knowledge lookup     must surface the fact from the KB
+  3. compose two tools    search a price, then compute with it
+  4. denied save          human DENIES approval: the note must NOT exist
                             and the agent must report the denial
-  5. no-tool question     — general knowledge; also measures whether the
+  5. no-tool question     general knowledge; also measures whether the
                             loop wastes tool calls it doesn't need
 
 Metrics per implementation (compare.py): success rate, LLM calls, tool
@@ -87,7 +86,7 @@ def search_notes(query: str) -> str:
 
 
 def save_note(title: str, body: str) -> str:
-    """Write a note into ./workspace/ — the dangerous (approval-gated) tool."""
+    """Write a note into ./workspace/, the dangerous (approval-gated) tool."""
     WORKSPACE.mkdir(exist_ok=True)
     safe = re.sub(r"[^a-z0-9_-]+", "_", title.lower()).strip("_") or "note"
     path = WORKSPACE / f"{safe}.md"

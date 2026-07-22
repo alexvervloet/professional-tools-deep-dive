@@ -1,10 +1,9 @@
 """
-Chapter 4 fixture generation — run the system under test ONCE.
-==============================================================
+Chapter 4 fixture generation: run the system under test ONCE.
 
 Generates the 8 answers (4 cases x grounded/loose) at temperature 0 and
-writes answers.json. Committed to the repo so every scorer run — hand-rolled,
-DeepEval, pytest gate, CI — grades the same fixed texts instead of a fresh
+writes answers.json. Committed to the repo so every scorer run (hand-rolled,
+DeepEval, pytest gate, CI) grades the same fixed texts instead of a fresh
 nondeterministic sample. Regenerate deliberately (delete the file and rerun)
 and expect scores to move a little; that wobble is the evals dive's
 example 09, not a bug here.
@@ -30,7 +29,7 @@ def main() -> None:
     if not os.getenv("OPENAI_API_KEY"):
         sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
     if ANSWERS_PATH.exists():
-        sys.exit(f"{ANSWERS_PATH.name} already exists — delete it to regenerate.")
+        sys.exit(f"{ANSWERS_PATH.name} already exists; delete it to regenerate.")
 
     client = OpenAI()
     rows = []

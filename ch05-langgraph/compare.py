@@ -1,6 +1,5 @@
 """
-Chapter 5 measurement — same tasks, same tools, loop vs graph.
-==============================================================
+Chapter 5 measurement: same tasks, same tools, loop vs graph.
 
 Runs the five-task eval REPS times through both implementations and prints
 success rate, LLM calls, tool calls, and wall time per task. Both use

@@ -1,6 +1,5 @@
 """
-Chapter 5 baseline — the agents dive's loop, condensed to one file.
-===================================================================
+Chapter 5 baseline: the agents dive's loop, condensed to one file.
 
 The while-loop that IS an agent (agents-deep-dive agent/loop.py), with its
 three safety pieces intact: max_steps, errors-fed-back-to-the-model, and
@@ -8,11 +7,11 @@ the approval gate on dangerous tools. OpenAI-only here so the loop and the
 provider glue fit on one screen.
 
 What to notice for the comparison: the approval gate is a synchronous
-callback INSIDE the loop — deny it and the denial becomes a tool result the
+callback INSIDE the loop: deny it and the denial becomes a tool result the
 model reacts to in the same run. LangGraph's equivalent (with_tool.py) is
 an interrupt: the graph *stops*, persists state to a checkpointer, and a
 second invocation resumes it. Same product feature, two very different
-shapes — one is a function call, the other is infrastructure.
+shapes: one is a function call, the other is infrastructure.
 
 Run the task set through it:
 

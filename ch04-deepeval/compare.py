@@ -1,13 +1,12 @@
 """
-Chapter 4 measurement — one judge call vs a judging pipeline.
-=============================================================
+Chapter 4 measurement: one judge call vs a judging pipeline.
 
 Scores the same 8 committed answers with both harnesses, same judge model:
 
   - hand-rolled: ONE call per answer, "rate 1-5, reply with the integer."
   - DeepEval FaithfulnessMetric: a multi-step pipeline per answer (extract
     truths from the context, extract claims from the answer, verdict each
-    claim, optionally write a reason) — the framework's bet is that
+    claim, optionally write a reason): the framework's bet is that
     decomposition beats a one-shot rating.
 
 Reported per harness: per-case scores and pass/fail agreement at the same

@@ -1,6 +1,5 @@
 """
-Chapter 5 port — the same agent through LangGraph's prebuilt ReAct graph.
-=========================================================================
+Chapter 5 port: the same agent through LangGraph's prebuilt ReAct graph.
 
 `create_react_agent` is the framework's version of hand_rolled.py's while
 loop: a two-node graph (model -> tools -> model ...) you get in one call.
@@ -9,11 +8,11 @@ The same three tool functions ride in as `@tool`-decorated wrappers.
 The interesting difference is the approval gate. The hand-rolled loop asks
 a callback mid-iteration. Here, save_note calls `interrupt()`: the graph
 STOPS, checkpoints its state (MemorySaver), and returns control with an
-`__interrupt__` marker; the caller resumes it later — seconds or days later
-— with `Command(resume=...)`. That's not a callback, it's durable
+`__interrupt__` marker; the caller resumes it later, seconds or days later,
+with `Command(resume=...)`. That's not a callback, it's durable
 human-in-the-loop infrastructure: survives restarts with a real
 checkpointer, but requires a checkpointer + thread_id even for this demo.
-One feature, two costs — compare.py measures whether it also changes the
+One feature, two costs; compare.py measures whether it also changes the
 agent's behavior on the same tasks.
 
 Run the task set through it:
