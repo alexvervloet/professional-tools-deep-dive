@@ -3,7 +3,7 @@ name: CI
 # This repo's whole subject is dependency churn, so its CI checks the thing
 # that churns: do the hard-pinned requirements still resolve and install
 # cleanly on a fresh box, and does every file still parse? The per-chapter
-# compare.py runs are deliberately NOT here — they need API keys (secrun), a
+# compare.py runs are deliberately NOT here: they need API keys (secrun), a
 # local Ollama with llama-guard3, and a self-hosted Langfuse (six containers),
 # none of which belong in CI. A green check means "the pins install and the
 # code parses," which is exactly the promise this repo makes about its pins.

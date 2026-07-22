@@ -1,9 +1,9 @@
-# Pinned on 2026-07-14. This repo pins hard on purpose — frameworks break
+# Pinned on 2026-07-14. This repo pins hard on purpose: frameworks break
 # between minor versions, and a chapter's verdict is tied to the version it
 # measured. If a pin is far behind the tool's current release, re-verify
 # before upgrading (see README: "A warning this repo wears on purpose").
 litellm==1.92.0
-# fastapi is not our dependency — litellm 1.92.0 imports it (via an MCP proxy
+# fastapi is not our dependency: litellm 1.92.0 imports it (via an MCP proxy
 # handler) as soon as you pass tools= to completion(), even in plain SDK use.
 # Undeclared-dependency churn like this is chapter 1's lesson in miniature.
 # (orjson: same story, one import deeper.)
@@ -15,25 +15,25 @@ python-dotenv==1.2.2
 # ch02
 instructor==1.15.4
 pydantic==2.13.4
-# ch03 — core + integrations, NOT the fat `llama-index` meta-package.
+# ch03: core + integrations, NOT the fat `llama-index` meta-package.
 # (`pip check` was clean after this install; the predicted resolver fight
 # with litellm/instructor hasn't happened yet.)
 llama-index-core==0.14.23
 llama-index-embeddings-openai==0.6.0
 llama-index-llms-openai==0.7.9
 llama-index-readers-file==0.6.0
-# ch04 — deepeval brought the predicted resolver fight: it requires
+# ch04: deepeval brought the predicted resolver fight: it requires
 # click<8.4.0 while huggingface-hub 1.23 (via litellm's tokenizer stack)
-# requires click>=8.4.2 — no click satisfies both. Resolution: hold
+# requires click>=8.4.2: no click satisfies both. Resolution: hold
 # huggingface-hub back to 1.16.1, which tolerates deepeval's click. This
 # pair of pins is the version-churn lesson made concrete; if you upgrade
 # either side, re-run `pip check`.
 deepeval==4.1.0
 click==8.3.3
 huggingface-hub==1.16.1
-# ch05 — clean install alongside everything above (pip check OK)
+# ch05: clean install alongside everything above (pip check OK)
 langgraph==1.2.9
 langchain-openai==1.3.5
-# ch07 — langfuse SDK (clean install; pip check OK). The SDK only sends
+# ch07: langfuse SDK (clean install; pip check OK). The SDK only sends
 # traces; the platform it talks to is self-hosted via docker (see ch07 README).
 langfuse==4.14.0
