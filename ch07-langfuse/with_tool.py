@@ -1,6 +1,5 @@
 """
-Chapter 7 port — the same request path, traced with Langfuse.
-=============================================================
+Chapter 7 port: the same request path, traced with Langfuse.
 
 Same app.py request path as hand_rolled.py, but the trace / spans / attributes
 go to a Langfuse instance (self-hosted; see the chapter README) instead of a
@@ -18,8 +17,8 @@ comparison is fair:
 The one structural upgrade Langfuse gives for free: the model call is a
 GENERATION, a first-class span type that carries model, token usage, and cost,
 so the platform can aggregate spend and latency across requests without you
-parsing your own logs. That aggregation — not the per-request record, which the
-baseline also has — is what compare.py and the verdict weigh.
+parsing your own logs. That aggregation (not the per-request record, which the
+baseline also has) is what compare.py and the verdict weigh.
 
 Requires the stack up and .env present (see README):
 
@@ -57,7 +56,7 @@ def get_langfuse():
     )
     if not client.auth_check():
         sys.exit(
-            "Langfuse auth_check() failed — is the stack up and .env correct?\n"
+            "Langfuse auth_check() failed: is the stack up and .env correct?\n"
             "  cd ch07-langfuse && docker compose up -d   (wait ~1 min for boot)\n"
             "Refusing to run: unrecorded traces are not a measurement (see ch06)."
         )
@@ -78,7 +77,7 @@ def answer(lf, oai: OpenAI, question: str) -> str:
         metadata={"prompt_version": app.ACTIVE_VERSION, "model": app.MODEL},
     ) as root:
         # The trace derives its input/output from this root observation in v4;
-        # set_trace_io() is deprecated (churn — see VERDICT).
+        # set_trace_io() is deprecated (churn; see VERDICT).
 
         with lf.start_as_current_observation(name="guard.input", as_type="span"):
             allowed, reason = app.check_input(question)
@@ -99,7 +98,7 @@ def answer(lf, oai: OpenAI, question: str) -> str:
             usage = response.usage
             assert usage is not None
             text = response.choices[0].message.content or ""
-            # Typed generation fields — this is what lets the UI aggregate
+            # Typed generation fields: this is what lets the UI aggregate
             # tokens/cost across traces without any log parsing.
             gen.update(
                 output=text,
@@ -123,4 +122,4 @@ if __name__ == "__main__":
         print(f"# handled: {question[:45]:45} -> {result[:40]}")
     lf.flush()
     print(f"\nFlushed to Langfuse at {os.environ.get('LANGFUSE_HOST')} "
-          f"— open it and look at project {os.environ.get('LANGFUSE_PUBLIC_KEY')!r}.")
+          f"Open it and look at project {os.environ.get('LANGFUSE_PUBLIC_KEY')!r}.")

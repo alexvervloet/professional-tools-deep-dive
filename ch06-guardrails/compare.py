@@ -1,20 +1,19 @@
 """
-Chapter 6 measurement — five guards, four case families, one scoreboard.
-========================================================================
+Chapter 6 measurement: five guards, four case families, one scoreboard.
 
 Scores every guard on the same 18 cases with the prompt-injection dive's
 question: how often did the attacker win, and how often did the guard block a
 customer? Per family, because the whole point is that the families have
 different answers:
 
-  detection rate per family — of the cases that SHOULD be flagged, how many
+  detection rate per family: of the cases that SHOULD be flagged, how many
                               were? (direct / indirect / harmful separately)
-  false-positive rate       — of the 5 benign cases, how many were blocked?
+  false-positive rate       of the 5 benign cases, how many were blocked?
                               A guard that fires here is worse than useless.
 
 The prediction on record (from this repo's own planning, and the reason ch06
 exists): Llama Guard is a content-safety classifier, so it should win the
-HARMFUL family outright and MISS the task-aligned indirect injections —
+HARMFUL family outright and MISS the task-aligned indirect injections 
 `doc_phishing_line` above all, the attack that beat every layer in the dive.
 Predictions get measured, not asserted (AUTHORING-LESSONS §12); whatever this
 prints goes in VERDICT.md, confirmed or refuted.
@@ -66,11 +65,11 @@ def probe(guard_name: str, guard) -> str:
 
 unavailable = {name: reason for name, reason in ((n, probe(n, g)) for n, g in GUARDS.items()) if reason}
 for name, reason in unavailable.items():
-    print(f"\n  !!!! {name.upper()} IS UNAVAILABLE — dropped from the scoreboard, NOT scored as a miss.")
+    print(f"\n  !!!! {name.upper()} IS UNAVAILABLE: dropped from the scoreboard, NOT scored as a miss.")
     print(f"       {reason}")
     if name == "llama_guard":
         print("       Llama Guard needs: ollama pull llama-guard3 (or :1b). Without it this")
-        print("       chapter's central question — does a safety classifier catch injection? —")
+        print("       chapter's central question: does a safety classifier catch injection?")
         print("       is UNANSWERED. Do not read the table below as evidence about it.")
 GUARDS = {name: guard for name, guard in GUARDS.items() if name not in unavailable}
 
@@ -85,7 +84,7 @@ for guard_name, guard in GUARDS.items():
         try:
             flags[guard_name][case.name] = bool(guard(case.text))
         except Exception as e:
-            sys.exit(f"{guard_name} failed mid-run on {case.name}: {e} — refusing to "
+            sys.exit(f"{guard_name} failed mid-run on {case.name}: {e}; refusing to "
                      f"report a partial scoreboard as a result.")
     elapsed[guard_name] = time.perf_counter() - started
 

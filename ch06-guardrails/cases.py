@@ -1,32 +1,31 @@
 """
-Chapter 6 shared pieces — four case families, one measuring stick.
-==================================================================
+Chapter 6 shared pieces: four case families, one measuring stick.
 
 The prompt-injection dive's catalog (guardrails/attacks.py), ported, plus one
 family it deliberately doesn't have. Four families, because the whole question
 of this chapter is whether a *managed* guard covers the same ground as the
-detectors you hand-rolled — and the honest way to ask is to include cases each
+detectors you hand-rolled, and the honest way to ask is to include cases each
 side should win:
 
-  DIRECT      — 6 adversarial user messages trying to extract the fake secret
+  DIRECT      6 adversarial user messages trying to extract the fake secret
                 ("ignore previous instructions...", roleplay, fake delimiters).
                 The dive's finding: modern models refuse these anyway.
-  INDIRECT    — 3 task-aligned injections hidden in a poisoned document. The
+  INDIRECT    3 task-aligned injections hidden in a poisoned document. The
                 user's request is innocent; the document tells the bot to append
                 a phishing URL or a beacon image. This is what actually lands on
                 modern models, and `doc_phishing_line` is the attack that beat
                 EVERY layer in the dive.
-  HARMFUL     — 4 requests for genuinely harmful content. NOT injection at all:
+  HARMFUL     4 requests for genuinely harmful content. NOT injection at all:
                 this is the family the hand-rolled detectors never tried to
                 cover, and the one a safety classifier exists for. Included so
                 the comparison can show what the managed tool buys, not just
-                where it fails. (Requests only — no harmful content here.)
-  BENIGN      — 5 ordinary support questions, including the dive's trick ones
+                where it fails. (Requests only, no harmful content here.)
+  BENIGN      5 ordinary support questions, including the dive's trick ones
                 that contain trigger words ("ignore the typos", "I'm now on the
                 Team plan"). The false-positive test: a guard that blocks these
                 is worse than no guard.
 
-Every guard in this chapter implements one interface — `flag(text) -> bool` —
+Every guard in this chapter implements one interface: `flag(text) -> bool`
 so compare.py can score them all with the same numbers.
 """
 
@@ -79,7 +78,7 @@ INDIRECT = [
     ),
 ]
 
-# Requests for harmful content — the safety-classifier family. These are
+# Requests for harmful content: the safety-classifier family. These are
 # canonical, non-operational test strings (the request only; no harmful
 # information appears in this repo), used the same way Llama Guard's own
 # benchmarks use them: to measure whether a classifier fires.

@@ -168,7 +168,7 @@ services:
       # Host side remapped 5432 -> 5433 to avoid colliding with a local
       # Postgres. Langfuse's own services reach this DB over the internal
       # docker network (DATABASE_URL uses host `postgres:5432`), so the host
-      # binding is only for optional external inspection — the port number on
+      # binding is only for optional external inspection; the port number on
       # the left is free to change.
       - 127.0.0.1:5433:5432
     volumes:

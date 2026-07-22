@@ -1,10 +1,10 @@
-# Chapter 7 — Langfuse vs hand-rolled observability
+# Chapter 7: Langfuse vs hand-rolled observability
 
 The production dive built observability from scratch: a trace id per request,
 timed spans, and one JSON object per line to stderr
 ([hand_rolled.py](hand_rolled.py), condensed from `prod/observability.py`).
 That answers "what happened in *this* request." What it doesn't answer is
-"what happened across the last *ten thousand* requests" — because the query
+"what happened across the last *ten thousand* requests," because the query
 story is grep. Langfuse is the platform that turns the record you already own
 into something you can aggregate, filter, and look at.
 
@@ -32,7 +32,7 @@ secrun python with_tool.py      # sends traces; prints where to look
 ```
 
 Open <http://localhost:3000> (login from `.env`) to see the traces as a
-nested tree with per-span timing, token usage, and cost — the thing the JSON
+nested tree with per-span timing, token usage, and cost: the thing the JSON
 lines contain but can't *show* you.
 
 Tear down when done:
@@ -43,7 +43,7 @@ docker compose down             # add -v to also drop the volumes
 
 ## The honest framing
 
-This is the chapter where the tool most obviously earns its keep — an
+This is the chapter where the tool most obviously earns its keep: an
 observability *platform* genuinely does something 70 lines of stdlib can't
 (a UI, server-side aggregation, retention, filtering). The chapter's job is
 to be precise about the price of that: six always-on containers vs a

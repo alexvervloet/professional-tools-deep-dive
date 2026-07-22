@@ -1,6 +1,5 @@
 """
-Chapter 7 shared app — the thing being observed.
-=================================================
+Chapter 7 shared app: the thing being observed.
 
 A small support-answer request path, distilled from the production dive's
 prod/app.py: input guard -> prompt version -> model call -> output check.
@@ -8,7 +7,7 @@ Both observability implementations wrap THIS SAME function, so the only
 variable is how the request is traced.
 
 The app calls a real model (gpt-4o-mini) so the traces carry real token
-counts, latency, and cost — the fields an observability tool exists to
+counts, latency, and cost: the fields an observability tool exists to
 capture. The three-question workload includes a repeat (cache-style hit is
 out of scope here; the repeat just shows identical requests producing
 comparable traces) and one blocked-by-guard request, so a trace has
@@ -21,7 +20,7 @@ from openai import OpenAI
 
 MODEL = "gpt-4o-mini"
 
-# Two prompt versions, as in the prod dive's registry — the observability
+# Two prompt versions, as in the prod dive's registry: the observability
 # layer should record WHICH version served each request.
 PROMPTS = {
     "v1": "You are a Nimbus Notes support agent. Answer the user's question.",
@@ -34,7 +33,7 @@ _INJECTION = re.compile(r"(?i)(ignore (all |the )?(previous|prior|above)|reveal 
 
 
 def check_input(question: str) -> tuple[bool, str]:
-    """Trivial input guard — returns (allowed, reason)."""
+    """Trivial input guard: returns (allowed, reason)."""
     if _INJECTION.search(question):
         return False, "possible prompt injection"
     return True, ""

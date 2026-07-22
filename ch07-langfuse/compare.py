@@ -1,21 +1,20 @@
 """
-Chapter 7 measurement — the record vs the platform.
-===================================================
+Chapter 7 measurement: the record vs the platform.
 
 Both implementations trace the same workload. This script makes the honest
-difference concrete by asking ONE operational question — "what did we spend,
-how slow was p95, how many got blocked?" — of each side, and showing what it
+difference concrete by asking ONE operational question ("what did we spend,
+how slow was p95, how many got blocked?") of each side, and showing what it
 took to answer:
 
   - hand-rolled: the traces are JSON lines. To answer the question you parse
-    them yourself (here, in Python — the grep-equivalent). You also computed
+    them yourself (here, in Python, the grep-equivalent). You also computed
     the per-request cost yourself, inline, because nothing else would.
   - Langfuse: the traces are on a server that already computed each request's
     cost from token usage and its own pricing map (we sent it token counts,
     never dollars), persisted them, and exposes them via a query API. You ask;
     it answers over data that outlives the process.
 
-The point isn't who can run sum() — both can. It's WHERE the data lives after
+The point isn't who can run sum(); both can. It's WHERE the data lives after
 the process exits, WHO priced it, and whether a teammate who wasn't at your
 terminal can ever see it.
 
@@ -62,7 +61,7 @@ print(f"   blocked      {hand_blocked}       (you counted the flag yourself)")
 print("   ...and once this process exits, these records are gone unless you shipped them somewhere.")
 
 # --- Langfuse: run the same workload, then ASK the server -------------------
-# Scope the query to THIS run with from_timestamp — otherwise trace.list pulls
+# Scope the query to THIS run with from_timestamp: otherwise trace.list pulls
 # every historical support.answer trace and the totals double-count vs the
 # hand-rolled four (a bug we hit: 8 traces, ~2x the spend).
 import time
@@ -81,9 +80,9 @@ lf_cost = sum((t.total_cost or 0.0) for t in traces)
 lf_latencies = [t.latency for t in traces if t.latency and t.latency > 0.01]
 lf_p95 = max(lf_latencies) * 1000 if lf_latencies else 0.0
 print(f"   traces on server   {len(traces)}   (persisted; survive this process, visible to a teammate)")
-print(f"   total spend        ${lf_cost:.6f}   (THE SERVER priced it — we sent tokens, never dollars)")
+print(f"   total spend        ${lf_cost:.6f}   (THE SERVER priced it: we sent tokens, never dollars)")
 print(f"   p95 latency        {lf_p95:.0f}ms   (server-computed from the spans)")
-print(f"   query story        one API call / a UI at {os.environ['LANGFUSE_HOST']} — not a grep")
+print(f"   query story        one API call / a UI at {os.environ['LANGFUSE_HOST']}, not a grep")
 
 # --- the receipts -----------------------------------------------------------
 hand_loc = len(Path(hand_rolled.__file__).read_text().splitlines())

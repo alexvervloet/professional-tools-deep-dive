@@ -1,6 +1,5 @@
 """
-Chapter 7 baseline — the production dive's observability, condensed.
-====================================================================
+Chapter 7 baseline: the production dive's observability, condensed.
 
 trace + spans + one-JSON-object-per-line structured logs, ported from
 ai-in-production-deep-dive prod/observability.py. This is the whole thing an
@@ -9,7 +8,7 @@ id, timed spans nest inside it, and the summary is a flat JSON record you can
 grep or ship to any log store.
 
 What you OWN here, and will compare against Langfuse: the data model (trace ->
-spans -> attributes), the sink (stderr JSON — a real deploy points it at a log
+spans -> attributes), the sink (stderr JSON: a real deploy points it at a log
 aggregator), and the query story (there isn't one; grep is the query story).
 That last gap is the whole pitch for a platform.
 
@@ -74,7 +73,7 @@ def answer(client: OpenAI, question: str) -> dict:
     """Run one request, fully traced. Returns the trace summary.
 
     The summary is built AFTER the `with` closes, because start_trace sets
-    duration_ms in its exit hook — returning from inside the block would hand
+    duration_ms in its exit hook; returning from inside the block would hand
     back a record with duration_ms=0.0 that contradicts the JSON written to
     stderr (an honest-output bug we hit and fixed; see LESSONS §presentation).
     """
@@ -112,7 +111,7 @@ if __name__ == "__main__":
         sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
     client = OpenAI()
     # The JSON trace record (one per request) is written to stderr as each
-    # trace closes — that IS the artifact. We don't re-print duration here: the
+    # trace closes: that IS the artifact. We don't re-print duration here: the
     # summary returned by answer() is built inside the trace, before the exit
     # hook sets duration_ms, so it would read 0.0 and contradict the JSON.
     for question in app.WORKLOAD:
