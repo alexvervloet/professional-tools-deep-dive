@@ -13,6 +13,12 @@ different interview answers. This dive closes that gap, and does it the only
 way this series knows how: **measured, against a baseline you understand,
 with the tradeoffs shown honestly.**
 
+> **New here? Read [WALKTHROUGH.md](WALKTHROUGH.md) first.** It is the guided
+> tour of the whole journey: the setup that gates each chapter, and for every
+> tool the fork in the road, the gotcha that will trip you, and the best and
+> worst case for reaching for it. This README is the reference; the walkthrough
+> is the map with the potholes marked.
+
 ## The method: port, measure, verdict
 
 Every chapter follows the same shape:
