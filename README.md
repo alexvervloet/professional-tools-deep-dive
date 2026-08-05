@@ -6,7 +6,7 @@ what transfers. This repo is the second half of that bargain: the tools
 professionals actually reach for on the job, learned *against* the versions you
 already built by hand.
 
-[CAREERS.md](https://github.com/alexvervloet/ai-deep-dives/blob/main/CAREERS.md)
+[CAREERS.md](https://github.com/alexvervloet/ai-engineering-deep-dive/blob/main/CAREERS.md)
 maps each dive to the industry tools that productionize it, so you can
 *recognize* them in a job posting. Recognizing a tool and having used it are
 different interview answers. This dive closes that gap, and does it the only
@@ -65,7 +65,7 @@ again before trusting the slate in 2027.
 Chapters land incrementally; the status column is the source of truth. A
 chapter isn't "done" until its verdict is backed by a real measured run; see
 the series'
-[authoring principles](https://github.com/alexvervloet/ai-deep-dives/blob/main/AUTHORING-LESSONS.md):
+[authoring principles](https://github.com/alexvervloet/ai-engineering-deep-dive/blob/main/AUTHORING-LESSONS.md):
 the output is the argument.
 
 ## Prerequisites
@@ -73,7 +73,7 @@ the output is the argument.
 This is a **volume 2**. Each chapter assumes you've done the corresponding
 from-scratch dive (or at least can read its final artifact comfortably); the
 whole teaching device is the comparison against something you understand.
-Start with the [series path](https://github.com/alexvervloet/ai-deep-dives) if
+Start with the [series path](https://github.com/alexvervloet/ai-engineering-deep-dive) if
 you haven't.
 
 ## A warning this repo wears on purpose
@@ -88,7 +88,7 @@ primitive underneath doesn't move.
 
 ---
 
-*Part of the [AI Engineering deep-dive series](https://github.com/alexvervloet/ai-deep-dives)
+*Part of the [AI Engineering deep-dive series](https://github.com/alexvervloet/ai-engineering-deep-dive)
 sequenced, self-contained, from-scratch lessons. This dive is the bridge
 from "I built it by hand" to "I've run the tool professionals use, and I know
 what it's doing."*
