@@ -55,7 +55,7 @@ def llama_guard_raw(text: str) -> str:
     response = _ollama.chat.completions.create(
         model=LLAMA_GUARD_MODEL,
         temperature=0,
-        max_tokens=16,
+        max_completion_tokens=16,
         messages=[{"role": "user", "content": text}],
     )
     return (response.choices[0].message.content or "").strip()

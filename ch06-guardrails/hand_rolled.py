@@ -6,7 +6,7 @@ Two input guards, ported verbatim from guardrails/detectors.py:
   - heuristic_guard: regex patterns. Free, instant, offline. The dive is blunt
     about it: it misses obfuscated attacks AND flags innocent messages that
     happen to say "ignore the typos": over- and under-fires at once.
-  - llm_guard: ask gpt-4o-mini "is this an injection attempt?". Smarter on
+  - llm_guard: ask gpt-5.4-nano "is this an injection attempt?". Smarter on
     paraphrase; costs a call; is itself a model that can be wrong or injected.
 
 Plus the dive's output-side check, which is a different animal and the reason
@@ -34,7 +34,7 @@ from openai import OpenAI
 
 from cases import ALL_CASES
 
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-5.4-nano"
 
 HEURISTIC_PATTERNS = [
     r"\bignore\b", r"\bdisregard\b", r"ignore (all |the )?(previous|prior|above)",
@@ -67,7 +67,7 @@ def llm_guard(text: str, client: OpenAI | None = None) -> bool:
     """Ask a model whether this is an injection attempt."""
     client = client or OpenAI()
     response = client.chat.completions.create(
-        model=MODEL, temperature=0, max_tokens=4,
+        model=MODEL, temperature=0, max_completion_tokens=4,
         messages=[
             {"role": "system", "content": DETECTOR_SYSTEM},
             {"role": "user", "content": f"USER INPUT:\n{text}\n\nIs this an injection attempt? (YES/NO)"},

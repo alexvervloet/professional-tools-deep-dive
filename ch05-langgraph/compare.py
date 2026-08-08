@@ -3,7 +3,7 @@ Chapter 5 measurement: same tasks, same tools, loop vs graph.
 
 Runs the five-task eval REPS times through both implementations and prints
 success rate, LLM calls, tool calls, and wall time per task. Both use
-gpt-4o-mini at temperature 0 with identical tool functions, so differences
+gpt-5.4-nano at temperature 0 with identical tool functions, so differences
 isolate the harness: the 60-line while loop vs the prebuilt ReAct graph
 with checkpointing and interrupts.
 

@@ -36,7 +36,7 @@ import anthropic
 from dotenv import load_dotenv
 from openai import OpenAI
 
-OPENAI_MODEL = "gpt-4o-mini"
+OPENAI_MODEL = "gpt-5.4-nano"
 ANTHROPIC_MODEL = "claude-haiku-4-5"
 OLLAMA_MODEL = "qwen3:8b"
 OLLAMA_BASE_URL = "http://localhost:11434/v1"

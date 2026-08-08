@@ -4,7 +4,7 @@ Chapter 1 port: the same provider layer through LiteLLM.
 Same three capabilities as hand_rolled.py: chat, streaming, tool calling
 same three providers. One request shape (OpenAI's), one response shape, for
 everything. The provider branch you maintained by hand is now a model-name
-prefix: "gpt-4o-mini" vs "anthropic/claude-haiku-4-5" vs "ollama/qwen3:8b".
+prefix: "gpt-5.4-nano" vs "anthropic/claude-haiku-4-5" vs "ollama/qwen3:8b".
 
 What LiteLLM is doing under the hood is exactly what hand_rolled.py does 
 re-dressing your OpenAI-shaped request in each provider's required format and
@@ -34,7 +34,7 @@ from litellm import completion, completion_cost
 litellm.suppress_debug_info = True  # keep example output readable
 
 MODELS = {
-    "openai": "gpt-4o-mini",
+    "openai": "gpt-5.4-nano",
     "anthropic": "anthropic/claude-haiku-4-5",
     # NOT "ollama/qwen3:8b": that prefix routes through Ollama's generate API,
     # and the final turn of a tool call comes back as an EMPTY STRING: no

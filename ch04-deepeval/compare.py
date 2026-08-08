@@ -11,7 +11,7 @@ Scores the same 8 committed answers with both harnesses, same judge model:
 
 Reported per harness: per-case scores and pass/fail agreement at the same
 0.75 threshold, wall time, and dollars (hand-rolled priced from captured
-token usage at gpt-4o-mini list price; DeepEval from its own
+token usage at gpt-5.4-nano list price; DeepEval from its own
 metric.evaluation_cost).
 
     secrun python ch04-deepeval/compare.py

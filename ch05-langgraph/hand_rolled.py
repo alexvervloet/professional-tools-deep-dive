@@ -30,7 +30,7 @@ from openai import OpenAI
 
 from tasks import SYSTEM, TASKS, calculator, save_note, search_notes
 
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-5.4-nano"
 MAX_STEPS = 6
 
 TOOL_DEFS = [

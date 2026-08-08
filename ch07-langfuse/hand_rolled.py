@@ -87,7 +87,7 @@ def answer(client: OpenAI, question: str) -> dict:
         else:
             with trace.span("model.call"):
                 response = client.chat.completions.create(
-                    model=app.MODEL, temperature=0, max_tokens=200,
+                    model=app.MODEL, temperature=0, max_completion_tokens=200,
                     messages=[
                         {"role": "system", "content": app.PROMPTS[app.ACTIVE_VERSION]},
                         {"role": "user", "content": question},

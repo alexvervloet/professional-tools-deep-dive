@@ -89,7 +89,7 @@ def answer(lf, oai: OpenAI, question: str) -> str:
             name="model.call", as_type="generation", model=app.MODEL, input=question,
         ) as gen:
             response = oai.chat.completions.create(
-                model=app.MODEL, temperature=0, max_tokens=200,
+                model=app.MODEL, temperature=0, max_completion_tokens=200,
                 messages=[
                     {"role": "system", "content": app.PROMPTS[app.ACTIVE_VERSION]},
                     {"role": "user", "content": question},

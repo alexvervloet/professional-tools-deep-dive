@@ -6,7 +6,7 @@ prod/app.py: input guard -> prompt version -> model call -> output check.
 Both observability implementations wrap THIS SAME function, so the only
 variable is how the request is traced.
 
-The app calls a real model (gpt-4o-mini) so the traces carry real token
+The app calls a real model (gpt-5.4-nano) so the traces carry real token
 counts, latency, and cost: the fields an observability tool exists to
 capture. The three-question workload includes a repeat (cache-style hit is
 out of scope here; the repeat just shows identical requests producing
@@ -18,7 +18,7 @@ import re
 
 from openai import OpenAI
 
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-5.4-nano"
 
 # Two prompt versions, as in the prod dive's registry: the observability
 # layer should record WHICH version served each request.

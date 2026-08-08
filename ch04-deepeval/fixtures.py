@@ -38,7 +38,7 @@ def main() -> None:
             response = client.chat.completions.create(
                 model=ANSWER_MODEL,
                 temperature=0,
-                max_tokens=200,
+                max_completion_tokens=200,
                 messages=[
                     {"role": "system", "content": system},
                     {"role": "user", "content": f"Context:\n{case['context']}\n\nQuestion: {case['q']}"},

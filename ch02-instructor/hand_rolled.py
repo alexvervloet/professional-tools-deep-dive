@@ -31,7 +31,7 @@ from pydantic import ValidationError
 
 from extraction import POSTINGS, SYSTEM_RULES, JobPosting, schema_block
 
-OPENAI_MODEL = "gpt-4o-mini"
+OPENAI_MODEL = "gpt-5.4-nano"
 OLLAMA_MODEL = "qwen3:8b"
 OLLAMA_BASE_URL = "http://localhost:11434/v1"
 

@@ -53,5 +53,5 @@ LOOSE_SYSTEM = (
     "is missing; always provide your best concrete answer."
 )
 
-ANSWER_MODEL = "gpt-4o-mini"  # system under test
-JUDGE_MODEL = "gpt-4o-mini"   # held constant across BOTH harnesses
+ANSWER_MODEL = "gpt-5.4-nano"  # system under test
+JUDGE_MODEL = "gpt-5.4-nano"   # held constant across BOTH harnesses

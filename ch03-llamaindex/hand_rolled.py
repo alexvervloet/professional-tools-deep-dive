@@ -29,7 +29,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 EMBED_MODEL = "text-embedding-3-small"
-CHAT_MODEL = "gpt-4o-mini"
+CHAT_MODEL = "gpt-5.4-nano"
 CHUNK_WORDS = 120
 OVERLAP_WORDS = 20
 K = 4
@@ -110,7 +110,7 @@ def answer(client: OpenAI, store: Store, question: str, k: int = K) -> str:
     prompt = "Context:\n" + "\n\n".join(blocks) + f"\n\nQuestion: {question}"
     response = client.chat.completions.create(
         model=CHAT_MODEL,
-        max_tokens=512,
+        max_completion_tokens=512,
         messages=[
             {"role": "system", "content": GROUNDED_SYSTEM},
             {"role": "user", "content": prompt},

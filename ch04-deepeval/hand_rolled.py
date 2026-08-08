@@ -46,7 +46,7 @@ def judge_faithfulness(client: OpenAI, context: str, answer: str) -> tuple[float
     response = client.chat.completions.create(
         model=JUDGE_MODEL,
         temperature=0,
-        max_tokens=8,
+        max_completion_tokens=8,
         messages=[
             {"role": "system", "content": FAITHFULNESS_SYSTEM},
             {"role": "user", "content": f"CONTEXT:\n{context}\n\nANSWER:\n{answer}\n\nFaithfulness score (1-5):"},
