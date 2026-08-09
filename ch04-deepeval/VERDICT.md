@@ -6,6 +6,14 @@ pass scores identical texts). Reproduce with
 `secrun python ch04-deepeval/compare.py` and
 `secrun .venv/bin/python -m pytest ch04-deepeval/test_gate.py -q`.
 
+> **Model note (2026-08-08).** These numbers were measured on `gpt-4o-mini`,
+> which was this repo's default at the time. The code has since moved to
+> `gpt-5.4-nano`, so re-running now will not reproduce these figures exactly.
+> The verdict is deliberately left as measured rather than rewritten: the
+> comparison it records really happened, on the models named above. What
+> should survive a model change is the *shape* of each finding, and checking
+> whether it does is a better exercise than trusting a refreshed number.
+
 ## The stable finding: same metric name, different metric
 
 The evals dive's faithfulness rubric says *every claim must be supported by

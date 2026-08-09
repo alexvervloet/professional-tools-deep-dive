@@ -5,6 +5,14 @@ Written from real runs on 2026-07-14 (langgraph 1.2.9, langchain-openai
 implementation, identical tool functions). Reproduce with
 `secrun python ch05-langgraph/compare.py`.
 
+> **Model note (2026-08-08).** These numbers were measured on `gpt-4o-mini`,
+> which was this repo's default at the time. The code has since moved to
+> `gpt-5.4-nano`, so re-running now will not reproduce these figures exactly.
+> The verdict is deliberately left as measured rather than rewritten: the
+> comparison it records really happened, on the models named above. What
+> should survive a model change is the *shape* of each finding, and checking
+> whether it does is a better exercise than trusting a refreshed number.
+
 ## The headline is a tie, and the tie is the lesson
 
 Both implementations: **10/10 tasks, 2.0 LLM calls per task, 1.0 tool calls

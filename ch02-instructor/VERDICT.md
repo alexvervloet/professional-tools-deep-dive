@@ -5,6 +5,14 @@ pydantic 2.13.4; gpt-4o-mini and qwen3:8b via Ollama; temperature 0.7; 5 trap
 postings × 2 reps × 3 approaches × 2 models = 60 extractions). Reproduce with
 `secrun python ch02-instructor/compare.py`.
 
+> **Model note (2026-08-08).** These numbers were measured on `gpt-4o-mini`,
+> which was this repo's default at the time. The code has since moved to
+> `gpt-5.4-nano`, so re-running now will not reproduce these figures exactly.
+> The verdict is deliberately left as measured rather than rewritten: the
+> comparison it records really happened, on the models named above. What
+> should survive a model change is the *shape* of each finding, and checking
+> whether it does is a better exercise than trusting a refreshed number.
+
 ## The headline finding is the one we didn't order
 
 Every approach succeeded on every run: 10/10 per cell, on both models, and

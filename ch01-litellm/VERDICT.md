@@ -5,6 +5,14 @@ anthropic 0.116.0; models: gpt-4o-mini, claude-haiku-4-5, qwen3:8b via
 Ollama). Reproduce with `secrun python ch01-litellm/compare.py`; every claim
 below came out of that script or the two implementations' own runs.
 
+> **Model note (2026-08-08).** These numbers were measured on `gpt-4o-mini`,
+> which was this repo's default at the time. The code has since moved to
+> `gpt-5.4-nano`, so re-running now will not reproduce these figures exactly.
+> The verdict is deliberately left as measured rather than rewritten: the
+> comparison it records really happened, on the models named above. What
+> should survive a model change is the *shape* of each finding, and checking
+> whether it does is a better exercise than trusting a refreshed number.
+
 ## What the router bought
 
 - **One shape for everything.** Chat, streaming, and the full tool-call dance

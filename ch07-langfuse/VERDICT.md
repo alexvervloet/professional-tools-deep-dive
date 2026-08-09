@@ -5,6 +5,14 @@ Written from real runs on 2026-07-16 against a **self-hosted Langfuse v3.217**
 calls gpt-4o-mini so traces carry real tokens, latency, and cost. Reproduce
 with the stack up: `secrun python ch07-langfuse/compare.py`.
 
+> **Model note (2026-08-08).** These numbers were measured on `gpt-4o-mini`,
+> which was this repo's default at the time. The code has since moved to
+> `gpt-5.4-nano`, so re-running now will not reproduce these figures exactly.
+> The verdict is deliberately left as measured rather than rewritten: the
+> comparison it records really happened, on the models named above. What
+> should survive a model change is the *shape* of each finding, and checking
+> whether it does is a better exercise than trusting a refreshed number.
+
 ## This is the chapter where the tool most clearly earns its keep
 
 Unlike ch02 (a closed problem) or ch05 (a dead tie), an observability

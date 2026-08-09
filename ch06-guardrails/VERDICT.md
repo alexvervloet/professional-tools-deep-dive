@@ -5,6 +5,14 @@ the 8B blob would not finalize on this network across several attempts, the
 1B did; gpt-4o-mini for `llm_guard`; guardrails-ai 0.10.2). 18 cases across
 four families. Reproduce with `secrun python ch06-guardrails/compare.py`.
 
+> **Model note (2026-08-08).** These numbers were measured on `gpt-4o-mini`,
+> which was this repo's default at the time. The code has since moved to
+> `gpt-5.4-nano`, so re-running now will not reproduce these figures exactly.
+> The verdict is deliberately left as measured rather than rewritten: the
+> comparison it records really happened, on the models named above. What
+> should survive a model change is the *shape* of each finding, and checking
+> whether it does is a better exercise than trusting a refreshed number.
+
 ## The scoreboard
 
 detection rate by family (higher better), false positives on 5 benign (lower better):
