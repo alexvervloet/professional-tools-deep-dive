@@ -16,7 +16,6 @@ something other than the happy path to record.
 
 import re
 
-from openai import OpenAI
 
 MODEL = "gpt-5.4-nano"
 
