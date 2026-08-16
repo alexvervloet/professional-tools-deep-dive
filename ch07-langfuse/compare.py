@@ -24,7 +24,6 @@ terminal can ever see it.
 
 import io
 import os
-import statistics
 import sys
 from contextlib import redirect_stderr
 from pathlib import Path
