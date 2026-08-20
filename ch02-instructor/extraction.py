@@ -78,7 +78,7 @@ Contract Data Engineer needed ASAP. $85/hr on W2, 6-month contract, fully
 remote (US only). Must know SQL, dbt and Airflow. Send resume to
 recruiting@datastaffing.com.""",
     "hybrid + no-comp trap": """\
-Mid-level Frontend Developer — React/TypeScript. Hybrid: 2 days a week in our
+Mid-level Frontend Developer, React/TypeScript. Hybrid: 2 days a week in our
 Amsterdam office. Competitive salary. At least 3 years experience with modern
 frontend tooling. We'd love it if you know Storybook too.""",
     "prose-date + GBP trap": """\
