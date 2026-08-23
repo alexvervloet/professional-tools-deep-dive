@@ -54,7 +54,7 @@ the numbers before you are told what they say.
 modules and change APIs between minor versions, and several gotchas below are
 already stale in the good way (the fix is in the code). Treat the concepts in each
 verdict as current and the exact version behavior as a snapshot. Before trusting a
-tool choice in a later year, re-run the landscape check.
+tool choice in a later year, re-run the check on what teams actually use.
 
 ---
 
@@ -298,7 +298,7 @@ that is not there.
 needs to see production traces, "grep my stderr" stops being an answer, and persistence,
 a query API, a UI, sharing, and server-side pricing (Langfuse priced a run to the exact
 cent from token counts alone, using its own model-price map) stop being luxuries. This
-is the chapter where the tool most clearly earns its keep.
+is the chapter where the tool most clearly pays for itself.
 
 **Worst case.** A script, a solo developer, a batch job, or an air-gapped box. Structured
 JSON to stderr piped to `jq` answers every question a single operator has, at zero
