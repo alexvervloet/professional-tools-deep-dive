@@ -30,7 +30,7 @@ failures are rare events; these runs bound the failure rate as "low," not
 
 ## What the measured differences actually were
 
-- **The retry loop still earns its keep, barely.** Hand-rolled went 9/10 on
+- **The retry loop still pays for itself, barely.** Hand-rolled went 9/10 on
   first call on *each* backend (2 of 20 runs needed the error-feedback
   retry, both recovered). Instructor and native were 10/10 first-call
   throughout. So first-attempt validation failures at temp 0.7 are real but
