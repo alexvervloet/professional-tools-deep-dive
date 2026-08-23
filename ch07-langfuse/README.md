@@ -43,7 +43,7 @@ docker compose down             # add -v to also drop the volumes
 
 ## The honest framing
 
-This is the chapter where the tool most obviously earns its keep: an
+This is the chapter where the tool most obviously pays for itself. An
 observability *platform* genuinely does something 70 lines of stdlib can't
 (a UI, server-side aggregation, retention, filtering). The chapter's job is
 to be precise about the price of that: six always-on containers vs a
