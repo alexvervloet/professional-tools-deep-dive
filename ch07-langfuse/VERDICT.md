@@ -13,7 +13,7 @@ with the stack up: `secrun python ch07-langfuse/compare.py`.
 > should survive a model change is the *shape* of each finding, and checking
 > whether it does is a better exercise than trusting a refreshed number.
 
-## This is the chapter where the tool most clearly earns its keep
+## This is the chapter where the tool most clearly pays for itself
 
 Unlike ch02 (a closed problem) or ch05 (a dead tie), an observability
 *platform* does something 121 lines of stdlib genuinely cannot. Both
