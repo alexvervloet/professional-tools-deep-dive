@@ -44,7 +44,7 @@ you get without touching them is **2023's stack at higher-than-2026 prices**
 and older on both model axes and more expensive on both. The dive's version of
 these choices was measured (chunk size in its example 05, k in 09); the
 framework's version is whatever the defaults were when that release shipped.
-"Defaults chosen by someone else, on a date you don't know" is the quiet
+"Defaults chosen by someone else, on a date you don't know" is the unstated
 cost of `from_documents()`.
 
 ## The property that did separate them: citations
