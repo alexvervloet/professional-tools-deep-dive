@@ -4,7 +4,7 @@ Working doc. Continue from the first unchecked milestone. Keep commits small:
 one file per commit where the file is likely to stay stable; err on the side
 of over-committing.
 
-> Tool slate verified against the mid-2026 landscape via web search on
+> Tool slate verified against mid-2026 usage via web search on
 > 2026-07-14 (adoption surveys, download stats, acquisition news). Notable:
 > promptfoo acquired by OpenAI (2026-03, folding into their Frontier
 > platform) → ch04 switched to DeepEval; Langfuse acquired by ClickHouse
