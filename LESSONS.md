@@ -81,7 +81,7 @@ the regression was visible is that the eval captured the **answers**, not just
 the scores, a change I made mid-chapter specifically so a property could be
 checked.
 
-Takeaway: metrics measure what you thought to measure; a tool swap can quietly
+Takeaway: metrics measure what you thought to measure; a tool swap can
 break a contract no metric is watching. Capture the raw outputs and assert on
 product properties (citations, format, refusal behavior), not only on the
 aggregate numbers; the green dashboard is exactly where the regression hides.
@@ -123,7 +123,7 @@ version is most tempting exactly when it agrees with what you expected.
 
 Ch06 went in predicting Llama Guard would win harmful content and miss
 injection. It did: 4/4 harmful with correct S1/S2/S11 codes, 0/3 injection.
-But running it anyway is what surfaced the part we *hadn't* predicted: the
+But running it anyway is what turned up the thing we *hadn't* predicted: the
 managed safety model covered **no category the dive's own hand-rolled
 `llm_guard` didn't already cover** (6/6 direct, 3/3 indirect, and the only
 guard to block the phishing line), and Llama Guard mislabeled the injections it
@@ -132,8 +132,8 @@ happened. None of that is visible from the prediction; all of it is in the
 data.
 
 Takeaway: a prediction is a hypothesis, and shipping it as a conclusion skips
-the experiment. Run it even when you're confident; the confirmation earns its
-place by being measured, and the findings you didn't predict are usually the
+the experiment. Run it even when you're confident; the confirmation counts only
+because it was measured, and the findings you didn't predict are usually the
 ones worth the chapter.
 
 ## 8. Name exactly what the tool adds, and subtract what you already had
