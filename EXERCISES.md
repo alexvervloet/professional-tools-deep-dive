@@ -79,7 +79,7 @@ is the thing the chapter claimed: verify it, don't take the verdict's word.
 
 ## Chapter 5: LangGraph
 
-1. **Make durability earn its complexity.** The interrupt demo resumes in
+1. **Make durability worth its complexity.** The interrupt demo resumes in
    the same process, which the hand-rolled callback also handles. Split it:
    one script that runs until the interrupt and exits; a second script that
    resumes from a `SqliteSaver` checkpoint with the approval. Then try to
