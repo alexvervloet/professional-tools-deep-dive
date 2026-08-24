@@ -3,7 +3,7 @@ Chapter 2 port: the same extraction through Instructor, and through the
 provider's own structured-output mode.
 
 Two competitors to the hand-rolled loop, because in 2026 the real question
-isn't "Instructor or hand-rolled"; it's "does a library still earn its keep
+isn't "Instructor or hand-rolled"; it's "does a library still pay for itself
 now that providers do this natively?"
 
   - instructor_extract(): `instructor.from_openai(client)` patches the client;
