@@ -9,7 +9,7 @@ measured, because they have different answers:
      calls did it take? This is what the tools advertise.
   2. MEANING: did the *values* survive the traps (hourly rate NOT annualized,
      hybrid NOT remote, prose date to ISO, NOK spotted)? The schema transport
-     can't save you here; this is where "structured output" quietly ends and
+     can't save you here; this is where "structured output" ends and
      "correct extraction" begins. Checked with TRAPS below: the same checks
      for every approach, per this series' rule: hold the judge constant.
 
