@@ -190,7 +190,7 @@ you adopt it, capabilities migrate between packages, and "just install it" can
 mean an account or an unsatisfiable resolver. Pin and record the exact versions
 you measured against; they encode findings, and they *will* move.
 
-## 11. Sometimes the tool just wins: and the discipline is to bound the win, not to hedge it
+## 11. Sometimes the tool just wins, and the discipline is to bound the win, not to hedge it
 
 Most of these lessons are cautions against over-crediting a tool, and it would
 be dishonest to let that curdle into "the hand-rolled version always suffices."
