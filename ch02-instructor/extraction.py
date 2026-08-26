@@ -9,7 +9,7 @@ Instructor, provider-native) compete on identical ground:
     prompt*. Field descriptions here mirror that prose; Instructor and the
     native mode send them to the model as the schema; the hand-rolled version
     renders them back into a prompt block (schema_block()).
-  - SYSTEM_RULES: the normalization policy. Identical for every approach 
+  - SYSTEM_RULES: the normalization policy. Identical for every approach:
     the comparison is about how the SCHEMA travels, not about prompt quality.
   - POSTINGS: five real-shaped postings, each with a trap the schema has to
     survive (an hourly rate that must NOT become an annual salary, a hybrid
