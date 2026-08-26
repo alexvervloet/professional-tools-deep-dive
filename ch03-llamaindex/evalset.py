@@ -4,7 +4,7 @@ Chapter 3 shared eval: the measuring stick, held constant.
 The metrics and the first five questions are the rag dive's example 09,
 verbatim in mechanics: hit rate @ k, MRR, and does-the-expected-fact-appear
 answer correctness. Seven more labelled questions were added (from the same
-corpus, same style) so a difference between pipelines has room to show up 
+corpus, same style) so a difference between pipelines has room to show up;
 five questions can hide a real gap behind one lucky hit.
 
 Every pipeline in this chapter is scored by run_eval() through the same two
