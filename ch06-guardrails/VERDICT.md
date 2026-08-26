@@ -102,7 +102,7 @@ Budget for a signup if you plan around the Hub.
 
 The chapter's one-line lesson: **"guardrail" names at least three different
 products**: a safety classifier, an intent detector, and a validation
-framework: and the red-team eval is what tells you which one is actually
+framework, and the red-team eval is what tells you which one is actually
 guarding the door you're worried about.
 
 ## The interview sentence
