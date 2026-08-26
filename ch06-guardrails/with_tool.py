@@ -9,7 +9,7 @@ thing. That confusion is the chapter's subject.
     or "unsafe" plus a taxonomy code (S1 violent crimes, S2 non-violent
     crimes, S11 self-harm, ...). Read that taxonomy and the prediction writes
     itself: there is no category for "tried to override the system prompt."
-    The chapter's job is to MEASURE the prediction, not assert it 
+    The chapter's job is to MEASURE the prediction, not assert it, per
     AUTHORING-LESSONS §12 (a refuted prediction, reported, teaches more than a
     tidy confirmation).
 
