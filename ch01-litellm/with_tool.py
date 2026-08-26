@@ -6,7 +6,7 @@ same three providers. One request shape (OpenAI's), one response shape, for
 everything. The provider branch you maintained by hand is now a model-name
 prefix: "gpt-5.4-nano" vs "anthropic/claude-haiku-4-5" vs "ollama/qwen3:8b".
 
-What LiteLLM is doing under the hood is exactly what hand_rolled.py does 
+What LiteLLM is doing under the hood is exactly what hand_rolled.py does:
 re-dressing your OpenAI-shaped request in each provider's required format and
 translating the response back. You wrote that translation once for two
 providers; LiteLLM maintains it for ~100. That's the whole product.
