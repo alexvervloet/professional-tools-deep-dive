@@ -13,7 +13,7 @@ different answers:
 
 The prediction on record (from this repo's own planning, and the reason ch06
 exists): Llama Guard is a content-safety classifier, so it should win the
-HARMFUL family outright and MISS the task-aligned indirect injections 
+HARMFUL family outright and MISS the task-aligned indirect injections,
 `doc_phishing_line` above all, the attack that beat every layer in the dive.
 Predictions get measured, not asserted (AUTHORING-LESSONS §12); whatever this
 prints goes in VERDICT.md, confirmed or refuted.
