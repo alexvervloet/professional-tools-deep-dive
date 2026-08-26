@@ -57,7 +57,7 @@ The hand-rolled tracer's real, non-trivial wins are the mirror image:
 lock-in**: the record is a dict you own, not a row in someone else's Postgres
 + ClickHouse + Redis + MinIO.
 
-## What it costs: and the churn tax, again
+## What it costs, and the churn tax again
 
 The price of the platform is **six always-on containers** (web, worker,
 Postgres, ClickHouse, Redis, MinIO) versus a `print()`. Standing it up was the
@@ -87,7 +87,7 @@ chapter's version-churn lesson (LESSONS §10) in infrastructure form:
 
 The honest one-liner: the hand-rolled version gives you the *record*; Langfuse
 gives you the *system around the record*: persistence, query, UI, pricing,
-sharing: and that system is the entire point once the request is someone
+sharing, and that system is the entire point once the request is someone
 else's and gone in 80ms.
 
 ## The interview sentence
