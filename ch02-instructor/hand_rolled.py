@@ -81,7 +81,7 @@ def extract(backend: str, posting: str) -> tuple[JobPosting, int]:
             return JobPosting.model_validate(json.loads(strip_fences(raw))), attempt + 1
         except (json.JSONDecodeError, ValidationError) as e:
             last_error = e
-            # The retry that pays for itself: show the model what it got wrong.
+            # What makes the retry work: show the model what it got wrong.
             messages.append({"role": "assistant", "content": raw})
             messages.append({
                 "role": "user",
