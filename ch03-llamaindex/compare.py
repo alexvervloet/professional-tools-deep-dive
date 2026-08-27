@@ -58,8 +58,8 @@ for name, (retrieve_fn, answer_fn, n_chunks) in pipelines.items():
     started = time.perf_counter()
     result = run_eval(retrieve_fn, answer_fn)
     seconds_per_q = (time.perf_counter() - started) / len(EVALSET)
-    # Citation discipline: does the answer point back at a source at all:
-    # a [n] marker (the baseline's contract) or a corpus filename?
+    # Citation discipline: does the answer point back at a source at all,
+    # via a [n] marker (the baseline's contract) or a corpus filename?
     cited = sum(
         1 for text in result.answers
         if re.search(r"\[\d+\]", text) or ".md" in text
