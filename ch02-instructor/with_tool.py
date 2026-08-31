@@ -94,7 +94,7 @@ def native_extract(backend: str, posting: str) -> tuple[JobPosting, int]:
 if __name__ == "__main__":
     load_dotenv()
     if not os.getenv("OPENAI_API_KEY"):
-        sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+        sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
     name, posting = next(iter(POSTINGS.items()))
     for label, fn in (("instructor", instructor_extract), ("native", native_extract)):
         job, calls = fn("openai", posting)

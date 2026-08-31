@@ -33,7 +33,7 @@ from hand_rolled import score_all
 
 load_dotenv()
 if not os.getenv("OPENAI_API_KEY"):
-    sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+    sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
 
 THRESHOLD = 0.75
 GPT_4O_MINI_PRICE = (0.15, 0.60)  # $ per 1M tokens in/out, list price 2026-07

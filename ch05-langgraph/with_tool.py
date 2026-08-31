@@ -89,7 +89,7 @@ def run_task(agent, task: dict, thread_id: str) -> tuple[RunStats, bool, float]:
 if __name__ == "__main__":
     load_dotenv()
     if not os.getenv("OPENAI_API_KEY"):
-        sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+        sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
     agent = build_agent()
     for n, task in enumerate(TASKS):
         stats, ok, seconds = run_task(agent, task, thread_id=f"demo-{n}")

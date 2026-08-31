@@ -28,7 +28,7 @@ from litellm import completion
 
 load_dotenv()
 if not (os.getenv("OPENAI_API_KEY") and os.getenv("ANTHROPIC_API_KEY")):
-    sys.exit("Run via secrun so OPENAI_API_KEY and ANTHROPIC_API_KEY are set (see SECRETS.md).")
+    sys.exit("Run via secrun so OPENAI_API_KEY and ANTHROPIC_API_KEY are set (see ../docs/SECRETS.md).")
 
 QUESTION = "In one sentence, what is an LLM gateway?"
 

@@ -95,7 +95,7 @@ def channel_guard(text: str) -> bool:
 if __name__ == "__main__":
     load_dotenv()
     if not os.getenv("OPENAI_API_KEY"):
-        sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+        sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
     client = OpenAI()
     print(f"  {'case':22} {'family':9} {'want':>5} {'heur':>5} {'llm':>4} {'chan':>5}")
     for case in ALL_CASES:

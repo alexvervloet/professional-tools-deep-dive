@@ -31,7 +31,7 @@ from extraction import POSTINGS, JobPosting
 
 load_dotenv()
 if not os.getenv("OPENAI_API_KEY"):
-    sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+    sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
 
 REPS = 2
 

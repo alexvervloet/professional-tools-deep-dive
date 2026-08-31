@@ -112,7 +112,7 @@ def describe_defaults() -> dict[str, object]:
 if __name__ == "__main__":
     load_dotenv()
     if not os.getenv("OPENAI_API_KEY"):
-        sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+        sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
     print("LlamaIndex's defaults on this version:")
     for key, value in describe_defaults().items():
         print(f"  {key}: {value}")

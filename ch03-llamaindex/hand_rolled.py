@@ -122,7 +122,7 @@ def answer(client: OpenAI, store: Store, question: str, k: int = K) -> str:
 if __name__ == "__main__":
     load_dotenv()
     if not os.getenv("OPENAI_API_KEY"):
-        sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+        sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
     client = OpenAI()
     store = build_store(client)
     print(f"{len(store.records)} chunks from {CORPUS_DIR}")

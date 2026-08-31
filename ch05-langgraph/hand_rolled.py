@@ -108,7 +108,7 @@ def run_task(client: OpenAI, task: dict) -> tuple[RunStats, bool, float]:
 if __name__ == "__main__":
     load_dotenv()
     if not os.getenv("OPENAI_API_KEY"):
-        sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+        sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
     client = OpenAI()
     for task in TASKS:
         stats, ok, seconds = run_task(client, task)

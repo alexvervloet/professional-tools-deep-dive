@@ -108,7 +108,7 @@ def answer(client: OpenAI, question: str) -> dict:
 if __name__ == "__main__":
     load_dotenv()
     if not os.getenv("OPENAI_API_KEY"):
-        sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+        sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
     client = OpenAI()
     # The JSON trace record (one per request) is written to stderr as each
     # trace closes: that IS the artifact. We don't re-print duration here: the

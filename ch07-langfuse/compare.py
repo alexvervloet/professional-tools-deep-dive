@@ -37,7 +37,7 @@ import with_tool
 
 load_dotenv(Path(__file__).parent / ".env")
 if not os.getenv("OPENAI_API_KEY"):
-    sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+    sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
 
 client = OpenAI()
 

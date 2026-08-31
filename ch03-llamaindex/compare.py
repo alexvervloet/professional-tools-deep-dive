@@ -30,7 +30,7 @@ from evalset import EVALSET, run_eval
 
 load_dotenv()
 if not os.getenv("OPENAI_API_KEY"):
-    sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+    sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
 logging.disable(logging.INFO)  # silence llama-index's per-request HTTP logs
 
 print("LlamaIndex defaults on this version:")

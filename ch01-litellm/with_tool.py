@@ -129,7 +129,7 @@ def chat_with_fallback(prompt: str) -> tuple[str, str]:
 if __name__ == "__main__":
     load_dotenv()
     if not (os.getenv("OPENAI_API_KEY") and os.getenv("ANTHROPIC_API_KEY")):
-        sys.exit("Run via secrun so OPENAI_API_KEY and ANTHROPIC_API_KEY are set (see SECRETS.md).")
+        sys.exit("Run via secrun so OPENAI_API_KEY and ANTHROPIC_API_KEY are set (see ../docs/SECRETS.md).")
 
     question = "In one sentence, what is an LLM gateway?"
     for provider in ("openai", "anthropic", "ollama"):

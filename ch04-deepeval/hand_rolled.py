@@ -76,7 +76,7 @@ def score_all(client: OpenAI) -> list[dict]:
 if __name__ == "__main__":
     load_dotenv()
     if not os.getenv("OPENAI_API_KEY"):
-        sys.exit("Run via secrun so OPENAI_API_KEY is set (see SECRETS.md).")
+        sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
     rows = score_all(OpenAI())
     for row in rows:
         print(f"  {row['raw']}/5  {row['prompt']:8} {row['case']}")
