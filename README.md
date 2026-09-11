@@ -1,6 +1,6 @@
 # Professional Tools: A Guided Deep Dive
 
-Every other repo in this series builds a piece from scratch, whether that is the agent loop,
+Every other repo in this series builds a piece from scratch, whether that's the agent loop,
 the retriever, the eval harness, or the guardrails, because that hand-built piece is what
 transfers. This repo is the second half of the bargain: the tools professionals actually
 reach for on the job, learned against the versions you already built by hand.
@@ -11,7 +11,7 @@ job posting. Recognizing a tool and having used it are different interview answe
 dive closes that gap the only way this series knows how: measured, against a baseline you
 understand, with the tradeoffs shown honestly.
 
-> **New here? Read [WALKTHROUGH.md](WALKTHROUGH.md) first.** It is the guided tour of the
+> **New here? Read [WALKTHROUGH.md](WALKTHROUGH.md) first.** It's the guided tour of the
 > whole journey: the setup that gates each chapter, and for every tool the fork in the
 > road, the gotcha that will trip you, and the best and worst case for reaching for it.
 > This README is the reference. The walkthrough is the map with the potholes marked.
@@ -21,7 +21,7 @@ understand, with the tradeoffs shown honestly.
 Every chapter follows the same shape.
 
 1. **The hand-built version.** A short recap of what you hand-rolled in the earlier dive,
-   with a link to it. That is the baseline. You know exactly what it does, because you
+   with a link to it. That's the baseline. You know exactly what it does, because you
    wrote every line.
 2. **The tool.** The professional replacement, introduced by what it claims to automate
    rather than by its marketing page.
@@ -30,14 +30,14 @@ Every chapter follows the same shape.
 4. **The measurement.** Run the same eval against both. Not vibes. The retrieval metrics,
    red-team attack success rates, and judge scores you built in the earlier dives are the
    measuring stick here.
-5. **The verdict.** What the tool bought you, whether that is less code, maintained
-   integrations, or tracing for free. What it cost you, whether that is debugging opacity,
-   version churn, or an abstraction between you and the request. And when you would still
+5. **The verdict.** What the tool bought you, whether that's less code, maintained
+   integrations, or tracing for free. What it cost you, whether that's debugging opacity,
+   version churn, or an abstraction between you and the request. And when you'd still
    hand-roll. Written from the run you just did rather than from the docs.
 
 The point is never "the framework is better" or "frameworks are bloat." The point is that
 after each chapter you can say, in an interview and in a design review, "I built it by
-hand, I've used the tool, and here is precisely what the tool is doing for me."
+hand, I've used the tool, and here's precisely what the tool is doing for me."
 
 ## The chapters
 
@@ -75,10 +75,10 @@ haven't.
 
 This repo will rot faster than the others, by design. Frameworks rename modules, break APIs
 between minor versions, and fall out of fashion. That churn is itself one of the lessons,
-and it is why the rest of the series teaches the hand-built version first. Dependencies are
+and it's why the rest of the series teaches the hand-built version first. Dependencies are
 pinned per chapter so the examples keep running. When a pin drifts far behind the tool's
 current release, treat the concepts in the verdict as current and the code as a snapshot.
-The thing underneath does not move.
+The thing underneath doesn't move.
 
 ---
 
