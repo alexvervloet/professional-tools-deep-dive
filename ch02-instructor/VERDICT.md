@@ -7,7 +7,7 @@ postings × 2 reps × 3 approaches × 2 models = 60 extractions). Reproduce with
 
 > **Model note (2026-08-08).** These numbers were measured on `gpt-4o-mini`,
 > which was this repo's default at the time. The code has since moved to
-> `gpt-5.4-nano`, so re-running now will not reproduce these figures exactly.
+> `gpt-5.4-nano`, so re-running now won't reproduce these figures exactly.
 > The verdict is deliberately left as measured rather than rewritten: the
 > comparison it records really happened, on the models named above. What
 > should survive a model change is the *shape* of each finding, and checking
@@ -19,7 +19,7 @@ Every approach succeeded on every run: 10/10 per cell, on both models, and
 all 34 semantic trap checks passed everywhere, including an 8B local model
 correctly leaving an hourly rate un-annualized and converting a Norwegian
 "søknadsfrist 15. august 2026" to ISO. **The 2023 pitch for parse-retry
-libraries: "models emit broken JSON, you need machinery," did not
+libraries: "models emit broken JSON, you need machinery," didn't
 reproduce** on this schema, at temperature 0.7, on either a frontier mini
 model or a local 8B. That's the honest 2026 baseline: for a flat-ish schema
 in JSON mode, the reliability war is mostly over.
@@ -34,18 +34,18 @@ failures are rare events; these runs bound the failure rate as "low," not
   first call on *each* backend (2 of 20 runs needed the error-feedback
   retry, both recovered). Instructor and native were 10/10 first-call
   throughout. So first-attempt validation failures at temp 0.7 are real but
-  rare, and the difference between the approaches is not whether retries
+  rare, and the difference between the approaches isn't whether retries
   happen, it's **who owns the ~40 lines that handle them** (hand_rolled.py's
   entire second half vs `max_retries=3` vs "not needed, the decoder can't
   emit an invalid shape").
-- **Constrained decoding is not free: on your own hardware you pay for it
+- **Constrained decoding isn't free: on your own hardware you pay for it
   in latency.** Native mode was the *fastest* approach on OpenAI (1.8s vs
   2.0/2.6) and the *slowest by 2×* on Ollama: 27.7s/request vs Instructor's
   12.5s and hand-rolled's 17.5s, same model, same postings. The schema
   guarantee is enforced by grammar-constrained sampling in the local
   runtime, and it costs generation speed. "Guaranteed shape" and "free" are
   different claims; only the first one survived measurement.
-- **The transport does not buy correctness.** 34/34 traps for every
+- **The transport doesn't buy correctness.** 34/34 traps for every
   approach: prompt-block schema, tool-call schema, and constrained decoding
   extracted identical *meaning*. Structured-output tooling decides how the
   schema travels and what happens on shape failure; the normalization rules
@@ -70,7 +70,7 @@ backends (one `mode=` swap) and keeps semantic retries for constraints a
 decoder can't express; native is zero extra dependencies and, on the
 provider's own hardware, the fastest and strongest guarantee. Hand-rolling
 this particular layer is the hardest to defend of the three: the code you'd
-own does nothing the other two don't, which was not true of chapter 1's
+own does nothing the other two don't, which wasn't true of chapter 1's
 provider layer. BAML (the rising schema-first DSL, cross-language, its own
 prompt format) is worth knowing exists; nothing in these measurements (zero
 failures to fix, zero trap misses) creates a problem it would solve for a
