@@ -7,7 +7,7 @@ implementation, identical tool functions). Reproduce with
 
 > **Model note (2026-08-08).** These numbers were measured on `gpt-4o-mini`,
 > which was this repo's default at the time. The code has since moved to
-> `gpt-5.4-nano`, so re-running now will not reproduce these figures exactly.
+> `gpt-5.4-nano`, so re-running now won't reproduce these figures exactly.
 > The verdict is deliberately left as measured rather than rewritten: the
 > comparison it records really happened, on the models named above. What
 > should survive a model change is the *shape* of each finding, and checking
@@ -21,9 +21,9 @@ run, including the trap task (a denied save reported honestly, no file
 written) and the efficiency task (no wasted tool call on a question that
 needed none). The agent's competence lives in the model and the tool
 descriptions, which were identical; the harness just routes messages. A
-framework does not make an agent smarter, and at this scale (three tools,
+framework doesn't make an agent smarter, and at this scale (three tools,
 single process, short tasks) it doesn't make it faster or cheaper either.
-The 2026 framework wars are not about what this chapter measured, which is
+The 2026 framework wars aren't about what this chapter measured, which is
 exactly why this chapter measured it.
 
 ## Where they actually differ: the shape of the pause
@@ -33,7 +33,7 @@ approval:
 
 - **Hand-rolled**: a callback inside the loop. Deny it and the denial
   becomes a tool result in the same run, same process, same stack frame.
-  Twelve lines; cannot survive a process restart.
+  Twelve lines; can't survive a process restart.
 - **LangGraph**: `interrupt()` inside the tool. The graph **stops**,
   checkpoints its state, and returns an `__interrupt__` marker; a second
   `invoke(Command(resume=...))`, seconds or days later, from the same or
@@ -59,7 +59,7 @@ version pinned here. The code keeps the old import; it works on the pinned
 version, and the warning is left visible in with_tool.py's run on purpose
 (compare.py silences it, pointing here). This is ch03's "defaults have a
 vintage" lesson in agent form: framework knowledge depreciates; the loop
-you wrote by hand does not.
+you wrote by hand doesn't.
 
 Dependency surface, for the record: the baseline is ~130 lines on the
 OpenAI SDK alone; the port adds langgraph, langgraph-checkpoint,
