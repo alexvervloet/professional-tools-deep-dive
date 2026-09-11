@@ -38,7 +38,7 @@ is the thing the chapter claimed: verify it, don't take the verdict's word.
    more than the hand-rolled prompt block it replaced?
 3. **Find the constraint the decoder can't check.** Add a Pydantic
    `model_validator` that enforces `salary_min <= salary_max`. Constrained
-   decoding cannot express cross-field rules, so what happens in each of
+   decoding can't express cross-field rules, so what happens in each of
    the three approaches when the model emits a reversed range? (Build a
    posting that tempts it: "up to 95k, from 80k".)
 
@@ -104,7 +104,7 @@ is the thing the chapter claimed: verify it, don't take the verdict's word.
    *taxonomy*, not the capacity? (Predicted: taxonomy. Verify it.)
 2. **Chase the S1 misfire.** Llama Guard labeled two injection attempts as
    "S1, violent crimes." Feed it just those payloads and vary the wording:
-   what is it actually tripping on? Is there a rephrase that makes the
+   what's it actually tripping on? Is there a rephrase that makes the
    misfire disappear (proving it's not really seeing injection)?
 3. **Build the two-layer guard that wins.** No single guard blocked
    everything. Compose the honest production stack: Llama Guard for harmful +
