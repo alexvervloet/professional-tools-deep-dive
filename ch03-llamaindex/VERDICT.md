@@ -7,7 +7,7 @@ hit@k/MRR/answer-fact metrics over 12 labelled questions). Reproduce with
 
 > **Model note (2026-08-08).** These numbers were measured on `gpt-4o-mini`,
 > which was this repo's default at the time. The code has since moved to
-> `gpt-5.4-nano`, so re-running now will not reproduce these figures exactly.
+> `gpt-5.4-nano`, so re-running now won't reproduce these figures exactly.
 > The verdict is deliberately left as measured rather than rewritten: the
 > comparison it records really happened, on the models named above. What
 > should survive a model change is the *shape* of each finding, and checking
@@ -25,7 +25,7 @@ hit this repeatedly: an effect needs a corpus that isolates it. A corpus
 where these pipelines *would* separate is bigger, messier, and
 near-duplicate-heavy; see the exercises.)
 
-So the honest chapter is not "which retrieves better here"; it's what else
+So the honest chapter isn't "which retrieves better here"; it's what else
 you inherit when you type `VectorStoreIndex.from_documents(docs)`.
 
 ## What the defaults actually were (this version, mid-2026)
