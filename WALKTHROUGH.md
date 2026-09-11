@@ -7,7 +7,7 @@ names the fork in the road (where you can branch off and try something else), th
 gotcha that will trip you (drawn from actually building it, not from the happy
 path), and the best and worst case for reaching for that tool.
 
-If you read one thing before starting, read this. It is the map with the potholes
+If you read one thing before starting, read this. It's the map with the potholes
 marked.
 
 ---
@@ -15,7 +15,7 @@ marked.
 ## How to travel
 
 **Prerequisite.** This is a "volume 2." Each chapter compares a professional tool
-against a primitive you built from scratch in an earlier dive. You do not have to
+against a primitive you built from scratch in an earlier dive. You don't have to
 have done every earlier dive, but you should be able to read the final artifact of
 the matching one comfortably, because the whole teaching device is the comparison
 against something you understand.
@@ -26,16 +26,16 @@ against something you understand.
    `pip install -r requirements.txt`. The requirements file is hard-pinned on
    purpose; the pins encode the exact versions each verdict is true of. Installing
    them cleanly on a fresh box is the one thing CI checks, because this repo's
-   subject is dependency churn and that is the thing that churns.
+   subject is dependency churn and that's the thing that churns.
 2. **API keys, via `secrun`.** Keys live in the macOS Keychain and are injected by
    the `secrun` wrapper, never in a `.env` or your shell. Every runnable script is
-   launched as `secrun python <path>`. A script that needs a key and does not get
+   launched as `secrun python <path>`. A script that needs a key and doesn't get
    one exits loudly rather than guessing.
 3. **Ollama, for the local-model halves.** Chapters 1, 2, and 6 run against a local
    model through Ollama. Chapter 6 needs `llama-guard3` specifically (see its
-   gotcha below; it is the heavy download of the repo).
+   gotcha below; it's the heavy download of the repo).
 4. **Docker, for chapter 7 only.** Langfuse is self-hosted as six containers. You
-   do not need it for any other chapter.
+   don't need it for any other chapter.
 
 **The rhythm of a chapter.** Each chapter folder holds the same four files, and the
 honest way through is to run them in this order:
@@ -47,8 +47,8 @@ honest way through is to run them in this order:
 - read `VERDICT.md` (what the numbers meant), then try an exercise from
   [EXERCISES.md](EXERCISES.md).
 
-The verdict is written last for a reason. Do not read it first; the point is to see
-the numbers before you are told what they say.
+The verdict is written last for a reason. Don't read it first; the point is to see
+the numbers before you're told what they say.
 
 **A standing caveat.** This repo rots faster than most by design. Frameworks rename
 modules and change APIs between minor versions, and several gotchas below are
@@ -68,12 +68,12 @@ Ollama.
 
 **The fork.** Add a fourth provider to both sides and count the lines it costs each.
 Any OpenAI-compatible runner works. Then exercise fallbacks: point at a model that
-does not exist and let the router fall through to one that does.
+doesn't exist and let the router fall through to one that does.
 
 **The gotcha.** Two of them, and both are the abstraction tax in miniature. First,
 the moment you pass `tools=` to `completion()`, LiteLLM imports `fastapi` and then
 `orjson` as undeclared dependencies (via an MCP proxy handler), so a plain SDK call
-crashes until you install packages the router never told you it needed. They are
+crashes until you install packages the router never told you it needed. They're
 pinned in requirements.txt with a comment for exactly this reason. Second, and
 nastier: the model prefix is a code path, not just a provider label.
 `ollama_chat/qwen3:8b` completes a tool call; `ollama/qwen3:8b` returns an **empty
@@ -81,14 +81,14 @@ string** for the final turn, with no error and no warning, because the two prefi
 route through different translation code inside the router. You debug that by
 reading LiteLLM's source, not yours.
 
-**Best case.** Many providers, a real fallback policy, and pricing upkeep you should
-not own. The router maintains the per-provider translation and the price map for
-about a hundred providers; that is the whole product and it is worth it.
+**Best case.** Many providers, a real fallback policy, and pricing upkeep you shouldn't
+own. The router maintains the per-provider translation and the price map for
+about a hundred providers; that's the whole product and it's worth it.
 
 **Worst case.** Two providers you control and a hard need to see raw provider errors.
 The router wraps a provider's clean 404 in its own exception type, or fails to route
-before any request is made with a message that does not mention your typo. A thin
-hand-rolled wrapper is more debuggable there, and it cannot fail to import itself.
+before any request is made with a message that doesn't mention your typo. A thin
+hand-rolled wrapper is more debuggable there, and it can't fail to import itself.
 
 ---
 
@@ -97,26 +97,26 @@ hand-rolled wrapper is more debuggable there, and it cannot fail to import itsel
 **The journey.** You take the schema-in-the-prompt plus parse-and-retry loop and
 rebuild it three ways: hand-rolled, Instructor, and the provider's own native
 structured-output mode. Five job postings, each carrying a trap (an hourly rate that
-must not become an annual salary, a hybrid role that is not remote, a date written
+must not become an annual salary, a hybrid role that isn't remote, a date written
 out in Norwegian prose), run twice each on a frontier mini model and a local 8B.
 
 **The fork.** Add a deeply nested field or a cross-field rule (`salary_min <=
-salary_max`) that constrained decoding cannot express, and watch which approach
+salary_max`) that constrained decoding can't express, and watch which approach
 still holds. Or price the three approaches per thousand postings with chapter 1's
 cost tools.
 
 **The gotcha.** The problem this tool was built for has mostly closed. All sixty
 extractions succeeded, across all three approaches and both models, with every
 semantic trap handled. The 2023 pitch ("models emit broken JSON, you need
-machinery") does not reproduce on current models for a flat-ish schema. So do not
+machinery") doesn't reproduce on current models for a flat-ish schema. So don't
 adopt Instructor for reliability you no longer lack; adopt it for portability and
-for retries on constraints a decoder cannot check. Also measured: native
+for retries on constraints a decoder can't check. Also measured: native
 constrained decoding is the fastest option on the provider's own hardware and the
 **slowest by 2x** on a local runtime, because the schema guarantee is paid for in
 grammar-constrained sampling speed.
 
 **Best case.** Multi-provider structured extraction where you want one code path and
-retained retries for validation rules the decoder cannot enforce.
+retained retries for validation rules the decoder can't enforce.
 
 **Worst case.** A single provider and a simple flat schema. The provider's native
 mode is zero extra dependencies and, on its own hardware, the fastest and strongest
@@ -146,17 +146,17 @@ broken; the one-liner from the README is just a two-year-old stack at above-mark
 prices, so audit the defaults. Second, and sharper: the port matched every metric
 and **silently stopped citing its sources** (twelve of twelve answers cited before,
 zero of twelve after), because the default prompt never asks for a citation and the
-framework's context assembly is not numbered. The only reason it was caught is that
+framework's context assembly isn't numbered. The only reason it was caught is that
 the eval captured the raw answers, not just the scores.
 
 **Best case.** Heterogeneous ingestion (PDFs, DOCX, tables), swappable vector-store
 backends when brute-force cosine stops scaling, and a bag of composable parts
-(rerankers, citation engines, metadata filters) you would otherwise build one at a
+(rerankers, citation engines, metadata filters) you'd otherwise build one at a
 time.
 
 **Worst case.** A small, clean corpus your hand pipeline already nails, especially
-when you have a product contract (like citations) that the defaults do not express.
-You will match the metrics and lose the contract.
+when you have a product contract (like citations) that the defaults don't express.
+You'll match the metrics and lose the contract.
 
 ---
 
@@ -175,11 +175,11 @@ times and measure the real flake rate. Or cross-check with Ragas.
 **The gotcha.** Three. First, on install: DeepEval requires `click<8.4` while another
 pinned library requires `click>=8.4.2`, an unsatisfiable pair resolved only by
 holding `huggingface-hub` back a minor version (documented in requirements.txt).
-Second, the metric is not your metric: DeepEval's faithfulness means absence of
+Second, the metric isn't your metric: DeepEval's faithfulness means absence of
 contradiction, so it passed a pure hallucination ("password-reset links are valid
 for 24 hours," over a context silent on expiry) with a perfect score on every run,
 while your rubric means every claim must be supported. The name matched your intent;
-the behavior did not. Third, the per-case pytest gate **flipped its verdict across
+the behavior didn't. Third, the per-case pytest gate **flipped its verdict across
 reruns on the exact same committed inputs** (three of four tests failed one run, all
 passed the next), because the multi-step judge pipeline has more places to wobble.
 Also: telemetry is on by default; opt out.
@@ -188,7 +188,7 @@ Also: telemetry is on by default; opt out.
 runner code of your own, dataset tooling, and a written reason attached to every
 score.
 
-**Worst case.** You need a specific rubric the built-in metric does not share, or a
+**Worst case.** You need a specific rubric the built-in metric doesn't share, or a
 stable gate on a small number of cases. A one-call judge you wrote is easier to pin
 to your definition and returned the same numbers every run. Threshold the mean across
 cases, not each case, if you want the gate to stop flaking.
@@ -208,7 +208,7 @@ compare how many model calls each burns before giving up.
 
 **The gotcha.** The churn arrives while you build. On its first run the port prints a
 deprecation: `create_react_agent` has moved to `langchain.agents` (a different
-package, one this environment does not even have installed), deprecated in v1.0 for
+package, one this environment doesn't even have installed), deprecated in v1.0 for
 removal in v2.0. The canonical way to build the canonical agent changed packages
 between the tutorials everyone learned from and the version pinned here. Also, the
 approval gate is real infrastructure, not a callback: LangGraph's `interrupt()`
@@ -218,14 +218,14 @@ checkpointer, a thread id, and a resume loop even for the demo. And note that th
 checkpointing while being unable to survive the process death the feature exists for;
 cross-process resume needs a separate package.
 
-**Best case.** You need what the tie did not test: durable checkpoint and resume
+**Best case.** You need what the tie didn't test: durable checkpoint and resume
 across processes, long-lived human approvals, streaming node-by-node events, or
 multi-agent graphs with shared state. Those are why the enterprise deployment lists
 are real.
 
 **Worst case.** A short, single-process, tool-using task. A 60-line loop ties it on
-every measured axis, is debuggable with a print statement, and does not deprecate its
-own entry point while you are writing the comparison.
+every measured axis, is debuggable with a print statement, and doesn't deprecate its
+own entry point while you're writing the comparison.
 
 ---
 
@@ -239,17 +239,17 @@ injection, genuinely harmful requests, and benign controls.
 
 **The fork.** Pull the 8B Llama Guard instead of the 1B and see whether the extra
 capacity catches any injection, or whether the blind spot is the taxonomy, not the
-size (it is the taxonomy). Or build the defense-in-depth stack that actually wins:
+size (it's the taxonomy). Or build the defense-in-depth stack that actually wins:
 Llama Guard for harmful content, the LLM guard for injection, the channel guard on
 the output.
 
 **The gotcha.** This is the chapter where the journey itself is the lesson. First, the
-download: the 8B `llama-guard3` blob would not finalize on the network across several
+download: the 8B `llama-guard3` blob wouldn't finalize on the network across several
 attempts (it stalled mid-blob, at a fixed byte offset, while the registry answered
 fine), so the chapter runs on `llama-guard3:1b`, which did finalize on a later retry.
 Budget for the heavy pull, and know it can stall. Second, and more important than any
-tool: **an unavailable tool is not a measurement.** The first version of `compare.py`
-caught the "model not found" exception and recorded "did not flag," which would have
+tool: **an unavailable tool isn't a measurement.** The first version of `compare.py`
+caught the "model not found" exception and recorded "didn't flag," which would have
 printed a clean, authoritative row reading "Llama Guard detected zero of thirteen
 attacks," a fabricated finding that happened to agree with the prediction. The harness
 now drops any unreachable guard with a loud banner instead of scoring it as a miss.
@@ -258,9 +258,9 @@ install` returns 401 without a token), so the chapter ships a custom validator o
 keyless path.
 
 **Best case.** Llama Guard for harmful-content moderation: local, fast, a stable
-auditable taxonomy, no per-call frontier bill, and zero false positives here. That is
+auditable taxonomy, no per-call frontier bill, and zero false positives here. That's
 its lane and it owns it. Guardrails AI for validation scaffolding (declarative guards,
-on_fail policies, reask flows) if you will feed it your own validators.
+on_fail policies, reask flows) if you'll feed it your own validators.
 
 **Worst case.** Either one for prompt-injection defense. Llama Guard scored zero on the
 indirect attacks, including the phishing line, because its taxonomy has no cell for
@@ -275,24 +275,24 @@ detector plus the structural output check, in depth.
 **The journey.** You take the production dive's hand-rolled tracer (trace id, spans,
 one JSON line per request to stderr) and send the same request path to a self-hosted
 Langfuse instead. Then you query the traces back and ask one operational question of
-each side: what did we spend, what is p95, how many were blocked?
+each side: what did we spend, what's p95, how many were blocked?
 
 **The fork.** Feel the difference retention makes: run the hand-rolled version, close
-the terminal, and try to answer "what did request three cost?" (you cannot; it is
+the terminal, and try to answer "what did request three cost?" (you can't; it's
 gone). Do the same with Langfuse and find it in the UI. Or verify the server's pricing
-on a model it does not know and see if `total_cost` comes back null the way the
+on a model it doesn't know and see if `total_cost` comes back null the way the
 hand-rolled table did on an unknown model.
 
 **The gotcha.** The infrastructure fights back. The self-host compose binds Postgres
 to host port 5432 and Redis to 6379, both commonly already owned by local services, so
-the stack will not start until you remap those host ports (Langfuse reaches them over
+the stack won't start until you remap those host ports (Langfuse reaches them over
 its internal network, so only the web port on 3000 actually needs the host). The SDK's
 API had also moved: the `start_as_current_span` and `update_current_trace` calls a 2024
 tutorial teaches are gone, replaced by `start_as_current_observation(as_type=...)`, and
 `set_trace_io()` is already deprecated on a fresh install. Verify the SDK's methods
 against the installed version rather than a blog post. And, as in chapter 6, the port
 calls `auth_check()` and exits loudly rather than pretend traces landed on a server
-that is not there.
+that isn't there.
 
 **Best case.** A team running a service for real users. The moment more than one person
 needs to see production traces, "grep my stderr" stops being an answer, and persistence,
@@ -303,7 +303,7 @@ is the chapter where the tool most clearly pays for itself.
 **Worst case.** A script, a solo developer, a batch job, or an air-gapped box. Structured
 JSON to stderr piped to `jq` answers every question a single operator has, at zero
 infrastructure and with nothing leaving the machine. Six always-on containers and a copy
-of your traces in a schema you do not own is a steep price for a `print` you could have
+of your traces in a schema you don't own is a steep price for a `print` you could have
 kept.
 
 ---
@@ -312,19 +312,19 @@ kept.
 
 If you skim nothing else, these are the traps most likely to cost you an afternoon:
 
-- **The pins are load-bearing.** Do not float the versions. Chapter 4's `click` versus
+- **The pins are load-bearing.** Don't float the versions. Chapter 4's `click` versus
   `huggingface-hub` conflict and chapter 1's undeclared `fastapi` and `orjson` are both
   encoded as pins with comments. A clean `pip install -r requirements.txt` on a fresh
   box is the CI check for a reason.
 - **A model name is often a code path.** LiteLLM's `ollama/` versus `ollama_chat/`
   changes behavior, not just routing, and one form fails silently.
 - **The metric or guard you import brings its own definition.** DeepEval's faithfulness
-  and Llama Guard's taxonomy are not your rubric. Read what they compute before you gate
+  and Llama Guard's taxonomy aren't your rubric. Read what they compute before you gate
   on them.
 - **A tool can break a product property while every metric stays green.** LlamaIndex
   dropped citations behind a passing eval. Capture your outputs and assert on properties,
   not just aggregate scores.
-- **An unavailable tool is not a measurement.** If a model will not download or a server
+- **An unavailable tool isn't a measurement.** If a model won't download or a server
   is down, the harness must fail loudly, never record a quiet zero that looks like a real
   result and, worse, may agree with what you expected.
 - **The canonical API may have moved.** LangGraph's agent entry point and Langfuse's span
