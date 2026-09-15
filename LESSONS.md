@@ -212,6 +212,30 @@ much*, at *what cost*.
 
 ---
 
+## 12. A pinned framework is a veto on your own dependencies
+
+Lesson 10 is about churn billing you while you build. This one outlives the
+build. On 2026-09-15 the `openai` SDK's current major was 3.x, and had been for
+a month. Every other dive in this series moved. This one could not: litellm
+1.101.0 requires `openai<3.0.0` and `httpx<1.0`, so asking for the current SDK
+next to it is a resolver error. Not a deprecation warning, not a degraded path.
+The install fails.
+
+Nothing about litellm's verdict changes because of this, and that's the point
+worth being careful about. The tool still does what chapter 1 measured. What it
+also does, invisibly at adoption time, is take the upgrade schedule of
+everything beneath it out of your hands. The SDK you call directly, the HTTP
+library your instrumentation hooks, the security patch in either of them: you
+get those when your framework gets around to them.
+
+That cost never shows up in an adoption comparison, because on the day you
+adopt, every version is current and the constraint is satisfied. It shows up
+months later as a line you can't move. So when a chapter's verdict says a tool
+is worth it, read the dependency bounds in its metadata as part of the price:
+`pip show -f` or the `requires_dist` on PyPI, and specifically the upper bounds
+on anything you also import yourself. An upper bound on someone else's
+dependency is a schedule. An upper bound on *your* dependency is a veto.
+
 *These came out of building `professional-tools-deep-dive`, the deep-dive
 series' "volume 2," where each chapter rebuilds a from-scratch primitive with
 the tool professionals reach for and scores both on the same eval. They
