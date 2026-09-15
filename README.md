@@ -80,6 +80,15 @@ pinned per chapter so the examples keep running. When a pin drifts far behind th
 current release, treat the concepts in the verdict as current and the code as a snapshot.
 The thing underneath doesn't move.
 
+Here's what that costs, in this repo, today. The `openai` SDK went to 3.0 on 2026-08-12
+and every other dive in the series runs on it. This one can't. litellm still requires
+`openai<3.0.0` and `httpx<1.0`, so asking for the current SDK alongside it is a resolver
+error, not a warning. The framework you adopt owns the upgrade schedule of everything
+underneath it, and you find that out on the day you want to upgrade rather than the day
+you adopt. Nothing in chapter 1's verdict changes. It's just worth seeing the bill
+itemised, because "we'll upgrade later" is the assumption a pinned framework quietly
+takes away from you.
+
 ---
 
 *Part of the [AI Engineering deep-dive series](https://github.com/alexvervloet/ai-engineering-deep-dive),
