@@ -29,7 +29,7 @@ from langchain_core.messages import AIMessage, ToolMessage
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.prebuilt import create_react_agent
+from langgraph.prebuilt import ToolNode, create_react_agent
 from langgraph.types import Command, interrupt
 
 import tasks
@@ -59,9 +59,14 @@ def save_note(title: str, body: str) -> str:
 
 
 def build_agent():
+    # handle_tool_errors=True makes a tool exception come back to the model as a
+    # ToolMessage, the way hand_rolled.py's try/except does. It has to be said out
+    # loud: the prebuilt default now only catches bad tool *arguments* and
+    # re-raises everything else, so the model's first try at task 0,
+    # "12.5% of 480 + 17", crashed the whole run instead of earning a retry.
     return create_react_agent(
         model=ChatOpenAI(model=MODEL, temperature=0, reasoning_effort="none"),
-        tools=[calculator, search_notes, save_note],
+        tools=ToolNode([calculator, search_notes, save_note], handle_tool_errors=True),
         prompt=SYSTEM,
         checkpointer=MemorySaver(),
     )
