@@ -60,7 +60,7 @@ def save_note(title: str, body: str) -> str:
 
 def build_agent():
     return create_react_agent(
-        model=ChatOpenAI(model=MODEL, temperature=0),
+        model=ChatOpenAI(model=MODEL, temperature=0, reasoning_effort="none"),
         tools=[calculator, search_notes, save_note],
         prompt=SYSTEM,
         checkpointer=MemorySaver(),
