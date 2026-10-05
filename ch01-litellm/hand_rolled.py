@@ -36,14 +36,14 @@ import anthropic
 from dotenv import load_dotenv
 from openai import OpenAI
 
-OPENAI_MODEL = "gpt-5.4-nano"
+OPENAI_MODEL = "gpt-6-luna"
 ANTHROPIC_MODEL = "claude-haiku-4-5"
 OLLAMA_MODEL = "qwen3:8b"
 OLLAMA_BASE_URL = "http://localhost:11434/v1"
 
 
 # --- Pricing: hand-maintained, per the API dives' utils/pricing.py. ---------
-# Snapshot as of 2026-07-14; check the providers' pricing pages.
+# Snapshot as of 2026-10-03; check the providers' pricing pages.
 @dataclass(frozen=True)
 class ModelPrice:
     input_per_1m: float
@@ -51,7 +51,7 @@ class ModelPrice:
 
 
 PRICING: dict[str, ModelPrice] = {
-    OPENAI_MODEL: ModelPrice(input_per_1m=0.15, output_per_1m=0.60),
+    OPENAI_MODEL: ModelPrice(input_per_1m=0.10, output_per_1m=0.50),
     ANTHROPIC_MODEL: ModelPrice(input_per_1m=1.00, output_per_1m=5.00),
     OLLAMA_MODEL: ModelPrice(input_per_1m=0.0, output_per_1m=0.0),  # your electricity
 }
@@ -86,7 +86,11 @@ def chat(provider: str, prompt: str) -> tuple[str, int, int]:
     """Return (reply_text, input_tokens, output_tokens)."""
     if provider == "openai":
         response = OpenAI().chat.completions.create(
-            model=OPENAI_MODEL, messages=[{"role": "user", "content": prompt}]
+            model=OPENAI_MODEL,
+            # gpt-6-luna reasons by default, and then rejects function tools on
+            # this endpoint. "none" turns that off. Ollama doesn't take it.
+            reasoning_effort="none",
+            messages=[{"role": "user", "content": prompt}],
         )
         usage = response.usage
         assert usage is not None
@@ -125,8 +129,9 @@ def stream(provider: str, prompt: str) -> str:
         )
         model = OPENAI_MODEL if provider == "openai" else OLLAMA_MODEL
         text = prompt if provider == "openai" else prompt + " /no_think"
+        extra = {"reasoning_effort": "none"} if provider == "openai" else {}
         for chunk in client.chat.completions.create(
-            model=model, messages=[{"role": "user", "content": text}], stream=True
+            model=model, messages=[{"role": "user", "content": text}], stream=True, **extra
         ):
             delta = chunk.choices[0].delta.content if chunk.choices else None
             if delta:
@@ -168,14 +173,15 @@ def tool_call(provider: str, prompt: str) -> str:
             },
         }]
         messages = [{"role": "user", "content": prompt}]
-        first = client.chat.completions.create(model=model, messages=messages, tools=tools)
+        extra = {"reasoning_effort": "none"} if provider == "openai" else {}
+        first = client.chat.completions.create(model=model, messages=messages, tools=tools, **extra)
         call = (first.choices[0].message.tool_calls or [None])[0]
         if call is None:
             return first.choices[0].message.content or ""
         result = get_current_weather(**json.loads(call.function.arguments))
         messages.append(first.choices[0].message)  # the assistant turn with the call
         messages.append({"role": "tool", "tool_call_id": call.id, "content": result})
-        second = client.chat.completions.create(model=model, messages=messages, tools=tools)
+        second = client.chat.completions.create(model=model, messages=messages, tools=tools, **extra)
         return second.choices[0].message.content or ""
 
     if provider == "anthropic":
