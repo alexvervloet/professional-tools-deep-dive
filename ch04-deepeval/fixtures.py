@@ -19,7 +19,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from cases import ANSWER_MODEL, CASES, GROUNDED_SYSTEM, LOOSE_SYSTEM
+from cases import ANSWER_MODEL, CASES, GROUNDED_SYSTEM, LOOSE_SYSTEM, REASONING_OFF
 
 ANSWERS_PATH = Path(__file__).parent / "answers.json"
 
@@ -38,6 +38,7 @@ def main() -> None:
             response = client.chat.completions.create(
                 model=ANSWER_MODEL,
                 temperature=0,
+                **REASONING_OFF,
                 max_completion_tokens=200,
                 messages=[
                     {"role": "system", "content": system},
