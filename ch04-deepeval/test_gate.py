@@ -37,7 +37,7 @@ from deepeval import assert_test
 from deepeval.metrics import FaithfulnessMetric
 from deepeval.test_case import LLMTestCase
 
-from cases import CASES, JUDGE_MODEL
+from cases import CASES, deepeval_judge
 
 CONTEXTS = {case["name"]: case["context"] for case in CASES}
 GROUNDED_ROWS = [
@@ -55,5 +55,5 @@ def test_grounded_answers_stay_faithful(row: dict) -> None:
             actual_output=row["answer"],
             retrieval_context=[CONTEXTS[row["case"]]],
         ),
-        [FaithfulnessMetric(threshold=0.75, model=JUDGE_MODEL, async_mode=False)],
+        [FaithfulnessMetric(threshold=0.75, model=deepeval_judge(), async_mode=False)],
     )
