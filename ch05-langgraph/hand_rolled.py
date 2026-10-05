@@ -30,7 +30,7 @@ from openai import OpenAI
 
 from tasks import SYSTEM, TASKS, calculator, save_note, search_notes
 
-MODEL = "gpt-5.4-nano"
+MODEL = "gpt-6-luna"
 MAX_STEPS = 6
 
 TOOL_DEFS = [
@@ -72,7 +72,10 @@ def run_agent(client: OpenAI, user_input: str, approve: Callable[[str, dict], bo
     ]
     for _ in range(MAX_STEPS):
         response = client.chat.completions.create(
-            model=MODEL, temperature=0, messages=messages, tools=TOOL_DEFS
+            model=MODEL, temperature=0, messages=messages, tools=TOOL_DEFS,
+            # luna reasons by default, and then rejects both temperature and
+            # function tools on this endpoint. "none" turns that off.
+            reasoning_effort="none",
         )
         stats.llm_calls += 1
         message = response.choices[0].message
