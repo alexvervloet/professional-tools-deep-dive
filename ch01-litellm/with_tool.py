@@ -4,7 +4,7 @@ Chapter 1 port: the same provider layer through LiteLLM.
 Same three capabilities as hand_rolled.py: chat, streaming, tool calling
 same three providers. One request shape (OpenAI's), one response shape, for
 everything. The provider branch you maintained by hand is now a model-name
-prefix: "gpt-5.4-nano" vs "anthropic/claude-haiku-4-5" vs "ollama/qwen3:8b".
+prefix: "gpt-6-luna" vs "anthropic/claude-haiku-4-5" vs "ollama/qwen3:8b".
 
 What LiteLLM does internally is exactly what hand_rolled.py does:
 re-dressing your OpenAI-shaped request in each provider's required format and
@@ -34,7 +34,7 @@ from litellm import completion, completion_cost
 litellm.suppress_debug_info = True  # keep example output readable
 
 MODELS = {
-    "openai": "gpt-5.4-nano",
+    "openai": "gpt-6-luna",
     "anthropic": "anthropic/claude-haiku-4-5",
     # NOT "ollama/qwen3:8b": that prefix routes through Ollama's generate API,
     # and the final turn of a tool call comes back as an EMPTY STRING: no
@@ -42,6 +42,12 @@ MODELS = {
     # path, not just a provider.
     "ollama": "ollama_chat/qwen3:8b",
 }
+
+# One request shape, except where it isn't. gpt-6-luna reasons by default and
+# then rejects function tools, so OpenAI calls need reasoning_effort="none".
+# Sent to Claude, LiteLLM would translate it into a thinking setting, so it
+# stays OpenAI-only. The provider branch didn't disappear; it moved into a dict.
+EXTRA = {"openai": {"reasoning_effort": "none"}}
 
 
 def get_current_weather(city: str) -> str:
@@ -69,7 +75,9 @@ def chat(provider: str, prompt: str) -> tuple[str, int, int, float]:
     if provider == "ollama":
         prompt += " /no_think"
     response = completion(
-        model=MODELS[provider], messages=[{"role": "user", "content": prompt}]
+        model=MODELS[provider],
+        messages=[{"role": "user", "content": prompt}],
+        **EXTRA.get(provider, {}),
     )
     usage = response.usage
     cost = completion_cost(completion_response=response)
@@ -87,7 +95,10 @@ def stream(provider: str, prompt: str) -> str:
         prompt += " /no_think"
     pieces: list[str] = []
     for chunk in completion(
-        model=MODELS[provider], messages=[{"role": "user", "content": prompt}], stream=True
+        model=MODELS[provider],
+        messages=[{"role": "user", "content": prompt}],
+        stream=True,
+        **EXTRA.get(provider, {}),
     ):
         delta = chunk.choices[0].delta.content if chunk.choices else None
         if delta:
@@ -100,14 +111,14 @@ def stream(provider: str, prompt: str) -> str:
 def tool_call(provider: str, prompt: str) -> str:
     """The same dance as hand_rolled.py, but one code path for all providers."""
     messages = [{"role": "user", "content": prompt}]
-    first = completion(model=MODELS[provider], messages=messages, tools=TOOLS)
+    first = completion(model=MODELS[provider], messages=messages, tools=TOOLS, **EXTRA.get(provider, {}))
     call = (first.choices[0].message.tool_calls or [None])[0]
     if call is None:
         return first.choices[0].message.content or ""
     result = get_current_weather(**json.loads(call.function.arguments))
     messages.append(first.choices[0].message.model_dump(exclude_none=True))
     messages.append({"role": "tool", "tool_call_id": call.id, "content": result})
-    second = completion(model=MODELS[provider], messages=messages, tools=TOOLS)
+    second = completion(model=MODELS[provider], messages=messages, tools=TOOLS, **EXTRA.get(provider, {}))
     return second.choices[0].message.content or ""
 
 
