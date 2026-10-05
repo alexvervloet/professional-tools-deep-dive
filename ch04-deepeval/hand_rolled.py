@@ -24,7 +24,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from cases import JUDGE_MODEL
+from cases import JUDGE_MODEL, REASONING_OFF
 
 ANSWERS_PATH = Path(__file__).parent / "answers.json"
 GATE_MEAN = 0.75
@@ -46,6 +46,7 @@ def judge_faithfulness(client: OpenAI, context: str, answer: str) -> tuple[float
     response = client.chat.completions.create(
         model=JUDGE_MODEL,
         temperature=0,
+        **REASONING_OFF,
         max_completion_tokens=8,
         messages=[
             {"role": "system", "content": FAITHFULNESS_SYSTEM},
