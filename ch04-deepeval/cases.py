@@ -53,5 +53,27 @@ LOOSE_SYSTEM = (
     "is missing; always provide your best concrete answer."
 )
 
-ANSWER_MODEL = "gpt-5.4-nano"  # system under test
-JUDGE_MODEL = "gpt-5.4-nano"   # held constant across BOTH harnesses
+ANSWER_MODEL = "gpt-6-luna"  # system under test
+JUDGE_MODEL = "gpt-6-luna"   # held constant across BOTH harnesses
+JUDGE_PRICE = (0.10, 0.50)   # $ per 1M tokens in/out, list price 2026-10-03
+
+# gpt-6-luna reasons by default, and while it does it rejects temperature. Both
+# harnesses judge at temperature 0, so every judge call turns reasoning off.
+REASONING_OFF = {"reasoning_effort": "none"}
+
+
+def deepeval_judge():
+    """The judge as DeepEval needs it.
+
+    A bare model name doesn't work: DeepEval sends temperature=0 on every call,
+    which luna rejects, and its 4.2.3 price table doesn't know luna, so it would
+    report the judging pipeline as free. generation_kwargs and the two costs fix
+    both. Imported lazily so the fixture script doesn't need deepeval."""
+    from deepeval.models import GPTModel
+
+    return GPTModel(
+        model=JUDGE_MODEL,
+        generation_kwargs=REASONING_OFF,
+        cost_per_input_token=JUDGE_PRICE[0] / 1e6,
+        cost_per_output_token=JUDGE_PRICE[1] / 1e6,
+    )
