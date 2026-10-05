@@ -34,7 +34,14 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 from extraction import POSTINGS, SYSTEM_RULES, JobPosting
-from hand_rolled import MAX_RETRIES, OLLAMA_BASE_URL, OLLAMA_MODEL, OPENAI_MODEL, TEMPERATURE
+from hand_rolled import (
+    MAX_RETRIES,
+    OLLAMA_BASE_URL,
+    OLLAMA_MODEL,
+    OPENAI_MODEL,
+    TEMPERATURE,
+    backend_extras,
+)
 
 
 def counting_client(backend: str) -> tuple[OpenAI, str, list[int]]:
@@ -72,6 +79,7 @@ def instructor_extract(backend: str, posting: str) -> tuple[JobPosting, int]:
         response_model=JobPosting,
         temperature=TEMPERATURE,
         max_retries=1 + MAX_RETRIES,  # instructor counts total attempts
+        **backend_extras(backend),  # passed straight through to the SDK
     )
     return job, len(calls)
 
@@ -83,6 +91,7 @@ def native_extract(backend: str, posting: str) -> tuple[JobPosting, int]:
         messages=_messages(backend, posting),
         temperature=TEMPERATURE,
         response_format=JobPosting,
+        **backend_extras(backend),
     )
     message = response.choices[0].message
     if message.refusal:
