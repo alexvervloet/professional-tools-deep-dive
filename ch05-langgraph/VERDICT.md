@@ -62,6 +62,18 @@ version, and the warning is left visible in with_tool.py's run on purpose
 vintage" lesson in agent form: framework knowledge depreciates; the loop
 you wrote by hand doesn't.
 
+**And it arrived again after the chapter shipped (2026-10-05).** The graph
+started crashing on task 0 while the loop kept passing. The model's first
+calculator call is `"12.5% of 480 + 17"`, which isn't valid arithmetic, so the
+tool raises. The loop's `try/except` hands that error back as the tool result
+and the model retries with a valid expression. LangGraph's prebuilt tool node
+used to do the same. In the pinned langgraph (1.2.11, prebuilt 1.1.0), its
+default only catches bad tool *arguments* and re-raises everything else, so the
+whole run died with a `SyntaxError`, 3 runs out of 3, on any model. The fix is
+one argument, `ToolNode(..., handle_tool_errors=True)`, and the point is that it
+has to be written down: the behavior the tie above depended on was a default,
+and defaults are what change between versions.
+
 Dependency surface, for the record: the baseline is ~130 lines on the
 OpenAI SDK alone; the port adds langgraph, langgraph-checkpoint,
 langgraph-prebuilt, langchain-core, langchain-openai, and langsmith to the
