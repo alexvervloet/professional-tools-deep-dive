@@ -7,7 +7,8 @@ implementation, identical tool functions). Reproduce with
 
 > **Model note (2026-08-08).** These numbers were measured on `gpt-4o-mini`,
 > which was this repo's default at the time. The code has since moved to
-> `gpt-5.4-nano`, so re-running now won't reproduce these figures exactly.
+> `gpt-5.4-nano` and then, when nano was deprecated, to `gpt-6-luna` (with
+> reasoning switched off), so re-running now won't reproduce these figures exactly.
 > The verdict is deliberately left as measured rather than rewritten: the
 > comparison it records really happened, on the models named above. What
 > should survive a model change is the *shape* of each finding, and checking
