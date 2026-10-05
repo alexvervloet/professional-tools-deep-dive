@@ -9,7 +9,7 @@ Two builds on the same corpus, because "use the framework" hides a decision:
     example 05, k in 09); this engine is what you get when you don't.
     __main__ prints what those defaults actually are on this version.
   - build_matched(): the same knobs turned to the baseline's values wherever
-    the framework exposes them: text-embedding-3-small, gpt-5.4-nano,
+    the framework exposes them: text-embedding-3-small, gpt-6-luna,
     similarity_top_k=4, a grounding prompt, and a SentenceSplitter sized to
     approximate the baseline's 120-word window (~160 tokens). Two honest
     mismatches remain: the splitter is sentence-aware (the baseline's window
@@ -88,7 +88,9 @@ def build_matched() -> Pipeline:
     # LLM must ride the query engine, not the index.
     retriever_fn, _ = _wrap(index, k=4, template=GROUNDED_QA_TEMPLATE)
     engine = index.as_query_engine(
-        llm=LlamaOpenAI(model="gpt-5.4-nano"),
+        # reasoning_effort="none" matches the baseline. llama-index-llms-openai
+        # below 0.8 raised "Unknown model" for gpt-6-luna, hence the pin.
+        llm=LlamaOpenAI(model="gpt-6-luna", reasoning_effort="none"),
         similarity_top_k=4,
         text_qa_template=GROUNDED_QA_TEMPLATE,
     )
