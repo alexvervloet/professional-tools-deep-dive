@@ -11,8 +11,8 @@ Scores the same 8 committed answers with both harnesses, same judge model:
 
 Reported per harness: per-case scores and pass/fail agreement at the same
 0.75 threshold, wall time, and dollars (hand-rolled priced from captured
-token usage at gpt-5.4-nano list price; DeepEval from its own
-metric.evaluation_cost).
+token usage at the judge's list price; DeepEval from its own
+metric.evaluation_cost, with the same price handed to it in cases.py).
 
     secrun python ch04-deepeval/compare.py
 """
@@ -26,7 +26,7 @@ os.environ.setdefault("DEEPEVAL_TELEMETRY_OPT_OUT", "1")  # before deepeval impo
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from cases import CASES, JUDGE_MODEL
+from cases import CASES, JUDGE_PRICE, deepeval_judge
 from deepeval.metrics import FaithfulnessMetric
 from deepeval.test_case import LLMTestCase
 from hand_rolled import score_all
@@ -36,7 +36,6 @@ if not os.getenv("OPENAI_API_KEY"):
     sys.exit("Run via secrun so OPENAI_API_KEY is set (see ../docs/SECRETS.md).")
 
 THRESHOLD = 0.75
-GPT_4O_MINI_PRICE = (0.15, 0.60)  # $ per 1M tokens in/out, list price 2026-07
 
 contexts = {case["name"]: case["context"] for case in CASES}
 
@@ -46,7 +45,7 @@ started = time.perf_counter()
 rows = score_all(client)
 hand_seconds = time.perf_counter() - started
 hand_cost = sum(
-    row["tokens_in"] / 1e6 * GPT_4O_MINI_PRICE[0] + row["tokens_out"] / 1e6 * GPT_4O_MINI_PRICE[1]
+    row["tokens_in"] / 1e6 * JUDGE_PRICE[0] + row["tokens_out"] / 1e6 * JUDGE_PRICE[1]
     for row in rows
 )
 
@@ -55,7 +54,7 @@ started = time.perf_counter()
 deepeval_cost = 0.0
 for row in rows:
     metric = FaithfulnessMetric(
-        threshold=THRESHOLD, model=JUDGE_MODEL, include_reason=True, async_mode=False
+        threshold=THRESHOLD, model=deepeval_judge(), include_reason=True, async_mode=False
     )
     metric.measure(
         LLMTestCase(
