@@ -31,12 +31,18 @@ from pydantic import ValidationError
 
 from extraction import POSTINGS, SYSTEM_RULES, JobPosting, schema_block
 
-OPENAI_MODEL = "gpt-5.4-nano"
+OPENAI_MODEL = "gpt-6-luna"
 OLLAMA_MODEL = "qwen3:8b"
 OLLAMA_BASE_URL = "http://localhost:11434/v1"
 
 MAX_RETRIES = 2
 TEMPERATURE = 0.7  # deliberately not 0; compare.py measures reliability
+
+
+def backend_extras(backend: str) -> dict:
+    """gpt-6-luna reasons by default, and while it does it rejects temperature
+    and function tools. "none" turns that off. Ollama doesn't take the param."""
+    return {"reasoning_effort": "none"} if backend == "openai" else {}
 
 
 def make_client(backend: str) -> tuple[OpenAI, str]:
@@ -75,6 +81,7 @@ def extract(backend: str, posting: str) -> tuple[JobPosting, int]:
             messages=messages,
             temperature=TEMPERATURE,
             response_format={"type": "json_object"},
+            **backend_extras(backend),
         )
         raw = response.choices[0].message.content or ""
         try:
