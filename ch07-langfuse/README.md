@@ -41,6 +41,11 @@ Tear down when done:
 docker compose down             # add -v to also drop the volumes
 ```
 
+> **The compose file runs Langfuse v4** (since 2026-10-06; it was v3). v3 gets security
+> patches only until the end of January 2027. If you ran this chapter on v3 before, the
+> old volumes are still there, and starting v4 on them runs its migrations. The traces
+> are demo data, so the simple path is `docker compose down -v` first, then `up -d`.
+
 ## The honest framing
 
 This is the chapter where the tool most obviously pays for itself. An
