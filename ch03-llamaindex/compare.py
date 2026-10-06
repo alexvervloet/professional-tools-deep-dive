@@ -22,6 +22,7 @@ import sys
 import time
 
 from dotenv import load_dotenv
+import openai
 from openai import OpenAI
 
 import hand_rolled
@@ -54,9 +55,19 @@ print(f"\nScoring {len(EVALSET)} questions per pipeline...\n")
 print(f"  {'pipeline':12} {'chunks':>6} {'hit@k':>7} {'MRR':>7} {'answers':>8} "
       f"{'cited':>6} {'s/q':>5}")
 results = {}
+retired = {}  # pipeline -> the error, when its model no longer exists
 for name, (retrieve_fn, answer_fn, n_chunks) in pipelines.items():
     started = time.perf_counter()
-    result = run_eval(retrieve_fn, answer_fn)
+    try:
+        result = run_eval(retrieve_fn, answer_fn)
+    except openai.NotFoundError as e:
+        # LlamaIndex's default LLM is gpt-3.5-turbo, even in the newest
+        # llama-index-llms-openai, and OpenAI shut it down on 2026-10-23. From
+        # then on the defaults pipeline can't answer anything. That's not a bug
+        # in this script; it's what copying the quickstart gets you.
+        retired[name] = e
+        print(f"  {name:12} FAILED: its model is gone ({str(e)[:70]})")
+        continue
     seconds_per_q = (time.perf_counter() - started) / len(EVALSET)
     # Citation discipline: does the answer point back at a source at all,
     # via a [n] marker (the baseline's contract) or a corpus filename?
@@ -79,4 +90,15 @@ for name, result in results.items():
 UNANSWERABLE = "Does Nimbus Notes have a Linux desktop app?"
 print(f"\n── unanswerable probe: {UNANSWERABLE!r} (corpus is silent on this)")
 for name, (_retrieve_fn, answer_fn, _n) in pipelines.items():
+    if name in retired:
+        print(f"  {name:12} -> (skipped: its model is gone)")
+        continue
     print(f"  {name:12} -> {answer_fn(UNANSWERABLE).strip()[:110]}")
+
+if retired:
+    print(
+        "\n── a default retired under you\n"
+        "  Nothing in this repo changed. The pipeline that touched no knobs inherited\n"
+        "  LlamaIndex's default model, and the provider switched that model off. The\n"
+        "  pipelines that named their model kept working."
+    )
