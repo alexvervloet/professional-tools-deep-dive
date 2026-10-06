@@ -74,8 +74,19 @@ for question in app.WORKLOAD:
 lf.flush()
 time.sleep(3)  # let async ingestion land
 
-traces = lf.api.trace.list(limit=50, name="support.answer", from_timestamp=run_start).data
-lf_cost = sum((t.total_cost or 0.0) for t in traces)
+# Langfuse v4 serves reads from one observations table. The v3 trace.list()
+# endpoint returns 404 there ("not available ... in v4 events_only mode"), so a
+# trace is its root observation, and its cost is the sum of the generations in it.
+roots = lf.api.observations.get_many(
+    name="support.answer", is_root_observation=True, from_start_time=run_start,
+    limit=50, fields="core,basic",
+).data
+generations = lf.api.observations.get_many(
+    type="GENERATION", from_start_time=run_start, limit=50, fields="core,basic,usage,model",
+).data
+run_traces = {r.trace_id for r in roots}
+traces = roots
+lf_cost = sum((g.total_cost or 0.0) for g in generations if g.trace_id in run_traces)
 lf_latencies = [t.latency for t in traces if t.latency and t.latency > 0.01]
 lf_p95 = max(lf_latencies) * 1000 if lf_latencies else 0.0
 print(f"   traces on server   {len(traces)}   (persisted; survive this process, visible to a teammate)")
