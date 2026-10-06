@@ -74,6 +74,16 @@ one argument, `ToolNode(..., handle_tool_errors=True)`, and the point is that it
 has to be written down: the behavior the tie above depended on was a default,
 and defaults are what change between versions.
 
+**And a third time, on a routine version bump (2026-10-06).** Moving
+langchain-openai from 1.3.5 to 1.6.7 broke two of the five tasks. The new
+version sends any `gpt-6` request that carries tools to OpenAI's Responses API
+on its own, and the reply's `content` comes back as a list of blocks instead of
+a string, so the task checks that called `.lower()` on it crashed. Nothing in the
+changelog headline said "your agent now talks to a different endpoint." The fix
+pins `use_responses_api=False`, which keeps the graph on chat completions like
+the hand-rolled loop, and reads `.text` instead of `.content`. The hand-rolled
+loop needed no change.
+
 Dependency surface, for the record: the baseline is ~130 lines on the
 OpenAI SDK alone; the port adds langgraph, langgraph-checkpoint,
 langgraph-prebuilt, langchain-core, langchain-openai, and langsmith to the
