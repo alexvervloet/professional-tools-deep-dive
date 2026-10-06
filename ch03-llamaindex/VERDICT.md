@@ -48,6 +48,16 @@ framework's version is whatever the defaults were when that release shipped.
 "Defaults chosen by someone else, on a date you don't know" is the unstated
 cost of `from_documents()`.
 
+**Then the default stopped existing (2026-10-23).** OpenAI shut down
+`gpt-3.5-turbo` that day. The newest `llama-index-llms-openai` (0.8.2, checked
+2026-10-03) still defaults to it, so a quickstart pipeline that never named its
+model can retrieve but not answer: every answer call returns a 404. Nothing in
+the app changed. compare.py now reports that pipeline as failed rather than
+crashing, and the other two keep scoring, because they named their model. The
+retrieval half survives only because `text-embedding-ada-002` hasn't been
+retired yet; it's the next default with a date on it. Name every model your
+pipeline depends on, including the ones a framework picks for you.
+
 ## The property that did separate them: citations
 
 The baseline's grounding contract, every answer cites its sources
