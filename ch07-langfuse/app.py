@@ -20,6 +20,7 @@ import re
 MODEL = "gpt-6-luna"
 # luna reasons by default and then rejects temperature; both harnesses send this.
 REASONING_OFF = {"reasoning_effort": "none"}
+PRICE_PER_1M = (0.10, 0.50)  # gpt-6-luna, $ per 1M tokens in/out, list price 2026-10-03
 
 # Two prompt versions, as in the prod dive's registry: the observability
 # layer should record WHICH version served each request.

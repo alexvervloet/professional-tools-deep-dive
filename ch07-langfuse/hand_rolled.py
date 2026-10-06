@@ -95,7 +95,8 @@ def answer(client: OpenAI, question: str) -> dict:
                 )
             usage = response.usage
             assert usage is not None
-            cost = usage.prompt_tokens / 1e6 * 0.15 + usage.completion_tokens / 1e6 * 0.60
+            price_in, price_out = app.PRICE_PER_1M
+            cost = usage.prompt_tokens / 1e6 * price_in + usage.completion_tokens / 1e6 * price_out
             trace.set(
                 prompt_tokens=usage.prompt_tokens, completion_tokens=usage.completion_tokens,
                 cost_usd=round(cost, 6),
