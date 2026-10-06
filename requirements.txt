@@ -2,13 +2,13 @@
 # between minor versions, and a chapter's verdict is tied to the version it
 # measured. If a pin is far behind the tool's current release, re-verify
 # before upgrading (see README: "A warning this repo wears on purpose").
-litellm==1.101.0
+litellm==1.104.0
 # fastapi is not our dependency: litellm imports it (via an MCP proxy
 # handler) as soon as you pass tools= to completion(), even in plain SDK use.
 # Undeclared-dependency churn like this is chapter 1's lesson in miniature.
 # (orjson: same story, one import deeper.)
-fastapi==0.139.0
-orjson==3.11.9
+fastapi==0.142.2
+orjson==3.12.0
 # openai is held on 2.x, and NOT by choice. openai 3.0 shipped 2026-08-12 and
 # every other dive in this series is on it. litellm 1.101.0 still requires
 # openai<3.0.0 and httpx<1.0, so installing the current SDK here is a hard
@@ -17,30 +17,30 @@ orjson==3.11.9
 # ch02-instructor/with_tool.py still imports httpx for the same reason; the rest
 # of the series moved to httpx2 with the SDK.
 openai==2.54.0
-anthropic==1.5.0
-python-dotenv==1.2.3
+anthropic==1.11.0
+python-dotenv==1.2.4
 # ch02
 instructor==1.17.0
 pydantic==2.13.5
 # ch03: core + integrations, NOT the fat `llama-index` meta-package.
 # (`pip check` was clean after this install; the predicted resolver fight
 # with litellm/instructor hasn't happened yet.)
-llama-index-core==0.14.24
-llama-index-embeddings-openai==0.6.0
+llama-index-core==0.14.25
+llama-index-embeddings-openai==0.7.0
 llama-index-llms-openai==0.8.2
-llama-index-readers-file==0.6.0
+llama-index-readers-file==0.7.0
 # ch04: deepeval brought the predicted resolver fight: it requires
 # click<8.4.0 while huggingface-hub 1.23 (via litellm's tokenizer stack)
 # requires click>=8.4.2: no click satisfies both. Resolution: hold
 # huggingface-hub back to 1.16.1, which tolerates deepeval's click. This
 # pair of pins is the version-churn lesson made concrete; if you upgrade
 # either side, re-run `pip check`.
-deepeval==4.2.3
+deepeval==4.2.8
 click==8.3.3
 huggingface-hub==1.16.1
 # ch05: clean install alongside everything above (pip check OK)
-langgraph==1.2.11
-langchain-openai==1.3.5
+langgraph==1.2.13
+langchain-openai==1.6.7
 # ch07: langfuse SDK (clean install; pip check OK). The SDK only sends
 # traces; the platform it talks to is self-hosted via docker (see ch07 README).
-langfuse==4.15.2
+langfuse==4.17.0

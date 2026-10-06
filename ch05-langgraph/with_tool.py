@@ -65,7 +65,13 @@ def build_agent():
     # re-raises everything else, so the model's first try at task 0,
     # "12.5% of 480 + 17", crashed the whole run instead of earning a retry.
     return create_react_agent(
-        model=ChatOpenAI(model=MODEL, temperature=0, reasoning_effort="none"),
+        # use_responses_api=False keeps the graph on chat completions, the same
+        # endpoint hand_rolled.py calls. langchain-openai 1.6 otherwise switches
+        # any gpt-6 request that carries tools to the Responses API on its own,
+        # and the comparison would quietly be measuring two endpoints.
+        model=ChatOpenAI(
+            model=MODEL, temperature=0, reasoning_effort="none", use_responses_api=False
+        ),
         tools=ToolNode([calculator, search_notes, save_note], handle_tool_errors=True),
         prompt=SYSTEM,
         checkpointer=MemorySaver(),
@@ -82,7 +88,9 @@ def run_task(agent, task: dict, thread_id: str) -> tuple[RunStats, bool, float]:
         result = agent.invoke(Command(resume=not task.get("deny_approval")), config)
     seconds = time.perf_counter() - started
 
-    stats = RunStats(answer=result["messages"][-1].content)
+    # .text, not .content: content can be a list of blocks (it is on the
+    # Responses API), and .text is the plain string either way.
+    stats = RunStats(answer=result["messages"][-1].text)
     for message in result["messages"]:
         if isinstance(message, AIMessage):
             stats.llm_calls += 1
