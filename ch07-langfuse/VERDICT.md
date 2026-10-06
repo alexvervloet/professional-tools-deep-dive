@@ -46,7 +46,7 @@ tokens, and, note, cost, which it also computes):
   when the process exits unless you separately ship them somewhere. The
   Langfuse traces are on a server, queryable minutes or weeks later.
 - **A query API and a UI.** "What did we spend, what's p95, how many blocked?"
-  is one `trace.list()` call or a web view at localhost:3000, not a grep over
+  is one API call or a web view at localhost:3000, not a grep over
   log files you first have to collect. The trace is a navigable tree with
   per-span timing, not a flat line you eyeball.
 - **Server-side pricing.** As above: you stop maintaining a cost formula.
@@ -74,6 +74,16 @@ chapter's version-churn lesson (LESSONS §10) in infrastructure form:
   is *already deprecated* in favor of `propagate_attributes()`, printing a
   warning on a fresh install. The canonical calls deprecate faster than the
   chapters that teach them.
+
+**Then the platform moved again (2026-10-06).** Upgrading the self-hosted stack
+from v3 to v4 was mostly a new compose file. The query was not: v4 answers
+`trace.list()` with a 404, "not available on deployments running in Langfuse v4
+events_only mode", because reads now come from one observations table. compare.py
+asks for the root `support.answer` observations and sums the cost of the
+generations inside them. The traces themselves arrived unchanged, and v4 already
+knew `gpt-6-luna`'s price. The same upgrade turned up a hardcoded gpt-4o-mini price
+in hand_rolled.py's cost line, left over from before the move to nano, which had
+been inflating the hand-rolled total next to the server's.
 
 ## When you'd reach for which
 
